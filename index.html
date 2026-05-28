@@ -3,45 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sforza · Lectura de Tarot | El Vacío susurra verdades</title>
+    <title>Sforza · Lectura de Tarot | Donde el destino encuentra su voz</title>
 
-    <!-- ========== FUENTES EXTERNAS (Estilo Dishonored) ========== -->
+    <!-- ========== FUENTES ========== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cinzel:wght@400;500;600;700;800;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
     <!-- ========== ESTILOS PRINCIPALES ========== -->
     <style>
         :root {
-            /* Paleta Dishonored: azules marinos profundos, dorados envejecidos, negros azulados */
-            --abismo: #0a0f1a;
-            --abismo-profundo: #060b14;
-            --azul-marino: #0d1b2a;
-            --azul-acero: #1b2d45;
-            --azul-vacio: #152238;
-            --azul-bruma: #1e3a5f;
-            --dorado-envejecido: #b8963e;
-            --dorado-oscuro: #8b6914;
-            --dorado-claro: #d4b56c;
-            --dorado-palido: #c9a94e;
+            /* Paleta Dishonored profunda */
+            --abismo: #060b14;
+            --abismo-profundo: #030810;
+            --azul-marino: #0b1829;
+            --azul-acero: #12253b;
+            --azul-vacio: #0d1f33;
+            --azul-bruma: #1a3352;
+            --azul-tormenta: #1b3a5c;
+            --dorado-envejecido: #a6842e;
+            --dorado-oscuro: #7a5f1a;
+            --dorado-claro: #c9a94e;
+            --dorado-palido: #d4b56c;
+            --dorado-brillo: #e0c878;
             --bronce: #6b5b3a;
             --cobre: #8b6b3d;
-            --gris-humo: #2a3040;
-            --gris-piedra: #3d4555;
-            --gris-ceniza: #5a6377;
+            --cobre-oscuro: #5a3d1a;
+            --gris-humo: #1e2633;
+            --gris-piedra: #2a3342;
+            --gris-ceniza: #4a5568;
+            --gris-claro: #6b7a8f;
             --texto-claro: #c8d0d8;
             --texto-medio: #9aa4b2;
             --texto-oscuro: #6b7588;
             --blanco-hueso: #e8e0d5;
             --blanco-espectral: #f0ebe0;
-            --negro-tinta: #040810;
+            --negro-tinta: #02050a;
             --sangre-azul: #1a3a5c;
             --borde-dorado: #7a6520;
-            --sombra-void: 0 4px 24px rgba(0, 0, 0, 0.6), 0 0 60px rgba(10, 25, 50, 0.4);
-            --sombra-dorada: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 40px rgba(184, 150, 62, 0.15);
+            --borde-dorado-claro: #a6842e;
+            --sombra-void: 0 4px 30px rgba(0, 0, 0, 0.7), 0 0 80px rgba(10, 25, 50, 0.5);
+            --sombra-dorada: 0 4px 30px rgba(0, 0, 0, 0.6), 0 0 50px rgba(166, 132, 46, 0.2), 0 0 100px rgba(166, 132, 46, 0.08);
+            --sombra-interior: inset 0 0 30px rgba(0, 0, 0, 0.5);
+            --transicion-lenta: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            --transicion-media: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             --borde-ornamento: 2px solid var(--borde-dorado);
-            --transicion-lenta: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            --transicion-media: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --clip-poligono: polygon(12px 0%, calc(100% - 12px) 0%, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0% calc(100% - 12px), 0% 12px);
+            --clip-poligono-sm: polygon(8px 0%, calc(100% - 8px) 0%, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0% calc(100% - 8px), 0% 8px);
         }
 
         * {
@@ -59,21 +67,21 @@
             font-family: 'Cormorant Garamond', 'EB Garamond', 'Georgia', 'Times New Roman', serif;
             background-color: var(--abismo);
             color: var(--texto-claro);
-            line-height: 1.75;
+            line-height: 1.8;
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.4px;
             background-image:
-                radial-gradient(ellipse at 20% 10%, rgba(30, 58, 95, 0.25) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 85%, rgba(11, 23, 41, 0.6) 0%, transparent 55%),
-                radial-gradient(ellipse at 50% 50%, rgba(15, 27, 43, 0.4) 0%, transparent 70%),
-                radial-gradient(circle at 30% 70%, rgba(184, 150, 62, 0.04) 0%, transparent 45%),
-                radial-gradient(circle at 70% 30%, rgba(184, 150, 62, 0.03) 0%, transparent 50%);
+                radial-gradient(ellipse at 15% 8%, rgba(26, 51, 82, 0.3) 0%, transparent 60%),
+                radial-gradient(ellipse at 85% 90%, rgba(11, 23, 41, 0.7) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, rgba(15, 27, 43, 0.5) 0%, transparent 70%),
+                radial-gradient(circle at 25% 65%, rgba(166, 132, 46, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 25%, rgba(166, 132, 46, 0.04) 0%, transparent 50%);
             background-attachment: fixed;
         }
 
-        /* ===== PATRÓN DE FONDO SUTIL (estilo runas/geometría) ===== */
+        /* ===== PATRÓN DE FONDO GEOMÉTRICO (estilo runas/relojes) ===== */
         body::before {
             content: '';
             position: fixed;
@@ -83,46 +91,73 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.06;
+            opacity: 0.04;
             background-image:
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(184, 150, 62, 0.5) 2px, rgba(184, 150, 62, 0.5) 3px),
-                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(184, 150, 62, 0.3) 2px, rgba(184, 150, 62, 0.3) 3px);
-            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+                repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(166, 132, 46, 0.6) 3px, rgba(166, 132, 46, 0.6) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(166, 132, 46, 0.4) 3px, rgba(166, 132, 46, 0.4) 4px),
+                repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(166, 132, 46, 0.2) 12px, rgba(166, 132, 46, 0.2) 13px);
+            mask-image: radial-gradient(ellipse at center, black 25%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 70%);
         }
 
-        /* ===== ORNAMENTOS FLOTANTES (estilo runas del Vacío) ===== */
+        /* ===== SEGUNDO PATRÓN DE FONDO (engranajes sutiles) ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.03;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(166,132,46,0.5) 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, rgba(166,132,46,0.5) 1px, transparent 1px),
+                radial-gradient(circle at 40% 80%, rgba(166,132,46,0.5) 1px, transparent 1px),
+                radial-gradient(circle at 60% 20%, rgba(166,132,46,0.5) 1px, transparent 1px),
+                radial-gradient(circle at 90% 40%, rgba(166,132,46,0.5) 1px, transparent 1px);
+            background-size: 80px 80px, 100px 100px, 90px 90px, 110px 110px, 70px 70px;
+            background-position: 0 0, 40px 30px, 20px 60px, 70px 10px, 50px 50px;
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 65%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 65%);
+        }
+
+        /* ===== ORNAMENTOS FLOTANTES (Runas del Vacío) ===== */
         .ornamento-flotante {
             position: fixed;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.15;
-            transition: opacity 1s ease;
-            font-family: 'Cinzel', serif;
+            opacity: 0.12;
+            transition: opacity 1.5s ease;
+            font-family: 'Cinzel Decorative', 'Cinzel', serif;
             color: var(--dorado-envejecido);
-            font-size: 2rem;
-            text-shadow: 0 0 15px rgba(184, 150, 62, 0.4);
-            animation: flotarVacio 8s ease-in-out infinite;
+            font-size: 2.2rem;
+            text-shadow: 0 0 20px rgba(166, 132, 46, 0.5), 0 0 40px rgba(166, 132, 46, 0.2);
+            animation: flotarVacio 10s ease-in-out infinite;
         }
-        .orn-1 { top: 8%; left: 5%; animation-delay: 0s; }
-        .orn-2 { top: 22%; right: 6%; animation-delay: 1.5s; font-size: 1.5rem; }
-        .orn-3 { bottom: 18%; left: 8%; animation-delay: 3s; font-size: 1.8rem; }
-        .orn-4 { top: 55%; right: 5%; animation-delay: 4.5s; }
-        .orn-5 { top: 72%; left: 50%; animation-delay: 6s; font-size: 1.4rem; }
-        .orn-6 { top: 15%; left: 45%; animation-delay: 2s; font-size: 1.3rem; }
+        .orn-1 { top: 6%; left: 4%; animation-delay: 0s; font-size: 2.4rem; }
+        .orn-2 { top: 18%; right: 5%; animation-delay: 1.8s; font-size: 1.6rem; }
+        .orn-3 { bottom: 15%; left: 7%; animation-delay: 3.5s; font-size: 1.9rem; }
+        .orn-4 { top: 50%; right: 4%; animation-delay: 5s; font-size: 2.1rem; }
+        .orn-5 { top: 70%; left: 48%; animation-delay: 7s; font-size: 1.5rem; }
+        .orn-6 { top: 12%; left: 42%; animation-delay: 2.5s; font-size: 1.4rem; }
+        .orn-7 { bottom: 30%; right: 12%; animation-delay: 6.5s; font-size: 1.7rem; }
+        .orn-8 { top: 35%; left: 3%; animation-delay: 4.2s; font-size: 1.3rem; }
 
         @keyframes flotarVacio {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.12; }
-            25% { transform: translateY(-18px) rotate(4deg); opacity: 0.2; }
-            50% { transform: translateY(-8px) rotate(-3deg); opacity: 0.14; }
-            75% { transform: translateY(-22px) rotate(2deg); opacity: 0.18; }
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.1; }
+            20% { transform: translateY(-20px) rotate(5deg) scale(1.08); opacity: 0.18; }
+            40% { transform: translateY(-8px) rotate(-4deg) scale(0.95); opacity: 0.13; }
+            60% { transform: translateY(-24px) rotate(3deg) scale(1.05); opacity: 0.17; }
+            80% { transform: translateY(-14px) rotate(-2deg) scale(0.98); opacity: 0.12; }
         }
 
         /* ===== CONTENEDOR PRINCIPAL ===== */
         .contenedor-principal {
             position: relative;
             z-index: 1;
-            max-width: 850px;
+            max-width: 880px;
             margin: 0 auto;
             padding: 20px 24px 50px;
         }
@@ -130,69 +165,90 @@
         /* ===== HEADER ESTILO DISHONORED ===== */
         header {
             text-align: center;
-            padding: 40px 20px 25px;
+            padding: 45px 20px 30px;
             position: relative;
-            border-bottom: 1px solid rgba(184, 150, 62, 0.2);
-            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(166, 132, 46, 0.25);
+            margin-bottom: 25px;
+        }
+        .marco-superior {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+        .marco-superior .linea {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--dorado-envejecido), transparent);
+        }
+        .marco-superior .rombo {
+            font-size: 0.9rem;
+            color: var(--dorado-envejecido);
+            font-family: 'Cinzel', serif;
         }
         .logo-sforza {
-            font-family: 'Cinzel', 'Georgia', serif;
-            font-size: 3.8rem;
+            font-family: 'Cinzel Decorative', 'Cinzel', 'Georgia', serif;
+            font-size: 4.2rem;
             font-weight: 700;
-            letter-spacing: 8px;
-            color: var(--dorado-envejecido);
-            text-shadow: 0 0 30px rgba(184, 150, 62, 0.4), 0 0 60px rgba(184, 150, 62, 0.2), 0 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 10px;
+            color: var(--dorado-brillo);
+            text-shadow: 0 0 40px rgba(166, 132, 46, 0.5), 0 0 80px rgba(166, 132, 46, 0.25), 0 4px 8px rgba(0,0,0,0.9), 0 0 120px rgba(166, 132, 46, 0.15);
             position: relative;
             display: inline-block;
             text-transform: uppercase;
+            line-height: 1;
         }
         .logo-sforza::before,
         .logo-sforza::after {
-            content: '❖';
+            content: '⬡';
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: var(--dorado-oscuro);
             opacity: 0.6;
+            text-shadow: 0 0 10px rgba(166, 132, 46, 0.4);
         }
-        .logo-sforza::before { left: -55px; }
-        .logo-sforza::after { right: -55px; }
+        .logo-sforza::before { left: -60px; }
+        .logo-sforza::after { right: -60px; }
         .subtitulo-header {
             font-family: 'Cormorant Garamond', serif;
             color: var(--texto-medio);
             font-style: italic;
-            font-size: 1.1rem;
-            letter-spacing: 4px;
-            margin-top: 6px;
+            font-size: 1.15rem;
+            letter-spacing: 5px;
+            margin-top: 8px;
             text-transform: lowercase;
         }
         .decoracion-header {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
-            opacity: 0.6;
+            gap: 24px;
+            margin-top: 18px;
+            opacity: 0.5;
         }
         .decoracion-header span {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--dorado-envejecido);
             font-family: 'Cinzel', serif;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
         }
 
-        /* ===== SECCIONES (estilo cartas/documentos antiguos) ===== */
+        /* ===== SECCIONES (estilo documentos/mecanismos antiguos) ===== */
         section {
-            background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(10, 15, 26, 0.95));
-            border: 1px solid rgba(184, 150, 62, 0.3);
+            background: linear-gradient(170deg, rgba(11, 24, 41, 0.92), rgba(6, 11, 20, 0.96), rgba(13, 27, 42, 0.93));
+            border: 1px solid rgba(166, 132, 46, 0.35);
             border-radius: 2px;
-            padding: 36px 32px;
-            margin: 24px 0;
-            box-shadow: var(--sombra-void);
+            padding: 40px 34px;
+            margin: 28px 0;
+            box-shadow: var(--sombra-void), var(--sombra-interior);
             position: relative;
             overflow: hidden;
             transition: var(--transicion-lenta);
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(3px);
+            clip-path: var(--clip-poligono);
         }
         section::before {
             content: '';
@@ -200,9 +256,9 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--dorado-envejecido), var(--dorado-oscuro), var(--dorado-envejecido), transparent);
-            opacity: 0.5;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--dorado-envejecido), var(--dorado-oscuro), var(--dorado-claro), var(--dorado-oscuro), var(--dorado-envejecido), transparent);
+            opacity: 0.6;
         }
         section::after {
             content: '';
@@ -210,41 +266,69 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(184, 150, 62, 0.3), transparent);
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(166, 132, 46, 0.4), transparent);
         }
         section:hover {
-            box-shadow: var(--sombra-dorada);
-            border-color: rgba(184, 150, 62, 0.5);
-            transform: translateY(-1px);
+            box-shadow: var(--sombra-dorada), var(--sombra-interior);
+            border-color: rgba(166, 132, 46, 0.55);
+            transform: translateY(-2px);
         }
+        /* Decoración de esquina en secciones */
+        .esquina-ornamento {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            pointer-events: none;
+            opacity: 0.4;
+            z-index: 1;
+        }
+        .esquina-ornamento::before,
+        .esquina-ornamento::after {
+            content: '';
+            position: absolute;
+            background: var(--dorado-envejecido);
+        }
+        .esquina-sup-izq { top: 8px; left: 8px; }
+        .esquina-sup-izq::before { top: 0; left: 0; width: 12px; height: 1px; }
+        .esquina-sup-izq::after { top: 0; left: 0; width: 1px; height: 12px; }
+        .esquina-sup-der { top: 8px; right: 8px; }
+        .esquina-sup-der::before { top: 0; right: 0; width: 12px; height: 1px; }
+        .esquina-sup-der::after { top: 0; right: 0; width: 1px; height: 12px; }
+        .esquina-inf-izq { bottom: 8px; left: 8px; }
+        .esquina-inf-izq::before { bottom: 0; left: 0; width: 12px; height: 1px; }
+        .esquina-inf-izq::after { bottom: 0; left: 0; width: 1px; height: 12px; }
+        .esquina-inf-der { bottom: 8px; right: 8px; }
+        .esquina-inf-der::before { bottom: 0; right: 0; width: 12px; height: 1px; }
+        .esquina-inf-der::after { bottom: 0; right: 0; width: 1px; height: 12px; }
+
         section h2 {
             font-family: 'Cinzel', 'Georgia', serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--dorado-claro);
-            margin-bottom: 18px;
-            letter-spacing: 4px;
+            margin-bottom: 20px;
+            letter-spacing: 5px;
             text-transform: uppercase;
             font-weight: 500;
             position: relative;
             display: inline-block;
-            padding-bottom: 8px;
+            padding-bottom: 10px;
         }
         section h2::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 60px;
+            width: 70px;
             height: 2px;
-            background: var(--dorado-envejecido);
-            box-shadow: 0 0 8px rgba(184, 150, 62, 0.5);
+            background: linear-gradient(90deg, var(--dorado-envejecido), transparent);
+            box-shadow: 0 0 10px rgba(166, 132, 46, 0.6);
         }
         section h3 {
             color: var(--dorado-claro);
-            margin: 14px 0 8px;
-            font-size: 1rem;
-            letter-spacing: 2px;
+            margin: 16px 0 10px;
+            font-size: 1.05rem;
+            letter-spacing: 3px;
             font-family: 'Cinzel', serif;
             font-weight: 400;
             text-transform: uppercase;
@@ -253,11 +337,11 @@
         /* ===== BOTONES ESTILO MECÁNICO DISHONORED ===== */
         .btn {
             display: inline-block;
-            padding: 14px 36px;
+            padding: 15px 38px;
             border-radius: 2px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             cursor: pointer;
             border: none;
             transition: var(--transicion-media);
@@ -269,40 +353,42 @@
             background: transparent;
             color: var(--dorado-claro);
             border: 1px solid var(--dorado-envejecido);
-            clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0% calc(100% - 8px), 0% 8px);
+            clip-path: var(--clip-poligono-sm);
+            z-index: 1;
         }
         .btn::before {
             content: '';
             position: absolute;
-            top: 1px;
-            left: 1px;
-            right: 1px;
-            bottom: 1px;
+            inset: 0;
             background: transparent;
             transition: var(--transicion-media);
             z-index: -1;
-            clip-path: polygon(7px 0%, calc(100% - 7px) 0%, 100% 7px, 100% calc(100% - 7px), calc(100% - 7px) 100%, 7px 100%, 0% calc(100% - 7px), 0% 7px);
+            clip-path: var(--clip-poligono-sm);
         }
         .btn:hover {
-            background: rgba(184, 150, 62, 0.15);
+            background: rgba(166, 132, 46, 0.2);
             border-color: var(--dorado-claro);
-            color: var(--dorado-palido);
-            box-shadow: 0 0 30px rgba(184, 150, 62, 0.3), inset 0 0 20px rgba(184, 150, 62, 0.1);
-            transform: translateY(-2px);
-            text-shadow: 0 0 10px rgba(184, 150, 62, 0.6);
+            color: var(--dorado-brillo);
+            box-shadow: 0 0 35px rgba(166, 132, 46, 0.35), inset 0 0 25px rgba(166, 132, 46, 0.1);
+            transform: translateY(-3px);
+            text-shadow: 0 0 12px rgba(166, 132, 46, 0.7);
+            letter-spacing: 5px;
         }
         .btn:active {
-            transform: scale(0.96);
-            box-shadow: 0 0 10px rgba(184, 150, 62, 0.2);
+            transform: scale(0.95);
+            box-shadow: 0 0 15px rgba(166, 132, 46, 0.25);
+            transition: 0.1s ease;
         }
         .btn-agendar {
-            background: rgba(184, 150, 62, 0.2);
+            background: rgba(166, 132, 46, 0.25);
             border-color: var(--dorado-envejecido);
             font-size: 1rem;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
+            padding: 16px 42px;
         }
         .btn-agendar:hover {
-            background: rgba(184, 150, 62, 0.35);
+            background: rgba(166, 132, 46, 0.4);
+            border-color: var(--dorado-brillo);
         }
         .btn-secundario {
             border-color: var(--gris-ceniza);
@@ -311,95 +397,107 @@
         .btn-secundario:hover {
             border-color: var(--dorado-envejecido);
             color: var(--dorado-claro);
+            background: rgba(166, 132, 46, 0.1);
         }
         .btn-pequeno {
-            padding: 10px 20px;
+            padding: 11px 22px;
             font-size: 0.8rem;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
         .btn-deshabilitado {
-            opacity: 0.4;
+            opacity: 0.35;
             pointer-events: none;
             cursor: not-allowed;
             border-color: var(--gris-piedra);
             color: var(--texto-oscuro);
+            filter: grayscale(0.5);
         }
 
-        /* ===== MODAL (estilo ventana de misión) ===== */
+        /* ===== MODAL (ventana de misión) ===== */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(4, 8, 16, 0.85);
-            backdrop-filter: blur(6px);
+            background: rgba(3, 8, 16, 0.88);
+            backdrop-filter: blur(8px);
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: fadeInVoid 0.4s ease;
+            animation: fadeInVoid 0.45s ease;
         }
         @keyframes fadeInVoid {
-            from { opacity: 0; background: rgba(4, 8, 16, 0.95); }
+            from { opacity: 0; background: rgba(3, 8, 16, 0.96); }
             to { opacity: 1; }
         }
         .modal-contenido {
-            background: linear-gradient(160deg, #0f1a2e, #0a111f, #0d1729);
-            border: 2px solid rgba(184, 150, 62, 0.5);
+            background: linear-gradient(165deg, #0c1a2b, #070f1c, #0b1827);
+            border: 2px solid rgba(166, 132, 46, 0.5);
             border-radius: 2px;
-            padding: 36px 28px;
-            max-width: 620px;
-            width: 92%;
-            max-height: 80vh;
+            padding: 40px 30px;
+            max-width: 640px;
+            width: 93%;
+            max-height: 82vh;
             overflow-y: auto;
-            box-shadow: var(--sombra-dorada), 0 0 80px rgba(10, 25, 50, 0.6);
+            box-shadow: var(--sombra-dorada), 0 0 100px rgba(10, 25, 50, 0.7);
             position: relative;
-            animation: slideUpVoid 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            clip-path: polygon(10px 0%, calc(100% - 10px) 0%, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0% calc(100% - 10px), 0% 10px);
+            animation: slideUpVoid 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+            clip-path: var(--clip-poligono);
         }
         @keyframes slideUpVoid {
-            from { transform: translateY(50px); opacity: 0; }
+            from { transform: translateY(60px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
         .modal-cerrar {
             position: absolute;
-            top: 12px;
-            right: 18px;
+            top: 14px;
+            right: 20px;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             cursor: pointer;
             color: var(--texto-medio);
             transition: var(--transicion-media);
             z-index: 2;
             font-family: 'Cinzel', serif;
+            line-height: 1;
         }
         .modal-cerrar:hover {
             color: var(--dorado-claro);
-            text-shadow: 0 0 8px rgba(184, 150, 62, 0.6);
-            transform: scale(1.1);
+            text-shadow: 0 0 12px rgba(166, 132, 46, 0.7);
+            transform: scale(1.15) rotate(90deg);
         }
         .modal-titulo {
             font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            margin-bottom: 16px;
+            font-size: 1.3rem;
+            margin-bottom: 18px;
             color: var(--dorado-claro);
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            border-bottom: 1px solid rgba(184, 150, 62, 0.3);
-            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(166, 132, 46, 0.3);
+            padding-bottom: 10px;
         }
         .modal-texto {
             font-size: 0.95rem;
             color: var(--texto-medio);
-            line-height: 1.7;
-            margin-bottom: 10px;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .modal-texto ul {
+            padding-left: 20px;
+            line-height: 2.1;
+            margin: 12px 0;
+            color: var(--texto-medio);
+        }
+        .modal-texto ul li strong {
+            color: var(--dorado-claro);
         }
         .modal-botones {
             display: flex;
-            gap: 14px;
-            margin-top: 20px;
+            gap: 16px;
+            margin-top: 24px;
             flex-wrap: wrap;
         }
         .oculto {
@@ -408,10 +506,10 @@
 
         /* ===== ORÁCULO SÍ/NO ===== */
         .oraculo-carta {
-            width: 170px;
-            height: 240px;
-            margin: 0 auto 20px;
-            perspective: 900px;
+            width: 175px;
+            height: 250px;
+            margin: 0 auto 22px;
+            perspective: 1000px;
             cursor: pointer;
             position: relative;
         }
@@ -420,7 +518,7 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .carta-inner.volteada {
             transform: rotateY(180deg);
@@ -439,78 +537,79 @@
             font-size: 0.9rem;
             box-shadow: var(--sombra-void);
             border: 2px solid var(--dorado-envejecido);
-            clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0% calc(100% - 8px), 0% 8px);
+            clip-path: var(--clip-poligono-sm);
         }
         .carta-reverso {
-            background: linear-gradient(135deg, #0c1a2b, #152b42, #0f1f33);
+            background: linear-gradient(135deg, #08101c, #0f1f33, #0a1625);
             color: var(--dorado-claro);
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             letter-spacing: 3px;
             cursor: pointer;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
             transition: var(--transicion-media);
             font-family: 'Cinzel', serif;
         }
         .carta-reverso:hover {
-            box-shadow: 0 0 40px rgba(184, 150, 62, 0.4), 0 8px 30px rgba(0,0,0,0.7);
+            box-shadow: 0 0 50px rgba(166, 132, 46, 0.45), 0 10px 35px rgba(0,0,0,0.8);
             border-color: var(--dorado-claro);
         }
         .carta-reverso .simbolo {
-            font-size: 3.5rem;
-            filter: drop-shadow(0 0 10px rgba(184, 150, 62, 0.5));
+            font-size: 3.8rem;
+            filter: drop-shadow(0 0 14px rgba(166, 132, 46, 0.6));
         }
         .carta-reverso .texto-reverso {
             font-size: 0.7rem;
-            letter-spacing: 3px;
-            opacity: 0.8;
+            letter-spacing: 4px;
+            opacity: 0.85;
             color: var(--dorado-palido);
             text-transform: uppercase;
         }
         .carta-frente {
-            background: linear-gradient(160deg, #1a2535, #0f1724);
+            background: linear-gradient(165deg, #152030, #0b141f, #111d2b);
             transform: rotateY(180deg);
             flex-direction: column;
-            padding: 16px;
-            gap: 8px;
+            padding: 18px;
+            gap: 10px;
             color: var(--texto-claro);
         }
         .carta-frente .emoji-carta {
-            font-size: 3rem;
-            filter: drop-shadow(0 0 6px rgba(255,255,255,0.3));
+            font-size: 3.2rem;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.35));
         }
         .carta-frente .nombre-carta {
             font-weight: bold;
-            letter-spacing: 2px;
-            font-size: 1rem;
+            letter-spacing: 3px;
+            font-size: 1.05rem;
             font-family: 'Cinzel', serif;
             color: var(--dorado-claro);
         }
         .carta-frente .significado-carta {
             font-size: 0.8rem;
             color: var(--texto-medio);
-            line-height: 1.5;
+            line-height: 1.6;
             font-style: italic;
         }
         .pregunta-input {
             width: 100%;
-            padding: 14px 18px;
+            padding: 15px 20px;
             border-radius: 2px;
             border: 1px solid var(--dorado-envejecido);
             font-size: 1rem;
             font-family: 'Cormorant Garamond', serif;
-            background: rgba(13, 27, 42, 0.7);
+            background: rgba(8, 18, 30, 0.8);
             transition: var(--transicion-media);
             color: var(--blanco-espectral);
             text-align: center;
-            letter-spacing: 1px;
-            backdrop-filter: blur(2px);
+            letter-spacing: 1.5px;
+            backdrop-filter: blur(3px);
+            clip-path: var(--clip-poligono-sm);
         }
         .pregunta-input:focus {
             outline: none;
             border-color: var(--dorado-claro);
-            box-shadow: 0 0 20px rgba(184, 150, 62, 0.2), inset 0 0 10px rgba(184, 150, 62, 0.05);
-            background: rgba(10, 21, 34, 0.9);
+            box-shadow: 0 0 25px rgba(166, 132, 46, 0.25), inset 0 0 15px rgba(166, 132, 46, 0.06);
+            background: rgba(5, 14, 24, 0.92);
         }
         .pregunta-input::placeholder {
             color: var(--gris-ceniza);
@@ -520,68 +619,72 @@
         .respuesta-oraculo {
             text-align: center;
             font-size: 1.05rem;
-            margin-top: 18px;
-            padding: 16px;
+            margin-top: 20px;
+            padding: 18px;
             border-radius: 2px;
-            background: rgba(21, 34, 56, 0.7);
-            border: 1px solid rgba(184, 150, 62, 0.3);
+            background: rgba(13, 27, 48, 0.75);
+            border: 1px solid rgba(166, 132, 46, 0.35);
             color: var(--blanco-espectral);
             font-style: italic;
             display: none;
-            letter-spacing: 0.5px;
-            backdrop-filter: blur(2px);
+            letter-spacing: 0.6px;
+            backdrop-filter: blur(3px);
+            clip-path: var(--clip-poligono-sm);
         }
         .respuesta-oraculo.visible {
             display: block;
-            animation: fadeInVoid 0.6s ease;
+            animation: fadeInVoid 0.7s ease;
         }
         #errorPregunta {
             text-align: center;
             font-size: 0.78rem;
             color: #c97a5a;
-            margin-top: 4px;
+            margin-top: 6px;
             display: none;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         /* ===== SOBRE MÍ ===== */
         .sobre-mi-contenedor {
             display: flex;
-            gap: 28px;
+            gap: 30px;
             align-items: flex-start;
             flex-wrap: wrap;
         }
         .girasol-icono {
             flex-shrink: 0;
-            width: 130px;
-            height: 130px;
+            width: 140px;
+            height: 140px;
             border-radius: 2px;
-            background: rgba(13, 27, 42, 0.8);
+            background: rgba(8, 18, 30, 0.85);
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: var(--sombra-void);
-            border: 1px solid rgba(184, 150, 62, 0.3);
-            clip-path: polygon(10px 0%, calc(100% - 10px) 0%, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0% calc(100% - 10px), 0% 10px);
+            border: 1px solid rgba(166, 132, 46, 0.35);
+            clip-path: var(--clip-poligono-sm);
         }
         .girasol-icono svg {
-            width: 90px;
-            height: 90px;
-            filter: drop-shadow(0 0 8px rgba(184, 150, 62, 0.4));
+            width: 95px;
+            height: 95px;
+            filter: drop-shadow(0 0 10px rgba(166, 132, 46, 0.5));
         }
         .sobre-mi-texto {
             flex: 1;
-            min-width: 240px;
+            min-width: 250px;
         }
         .sobre-mi-texto p {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             color: var(--texto-medio);
-            line-height: 1.8;
+            line-height: 1.9;
         }
         .sobre-mi-texto strong {
             color: var(--dorado-claro);
             font-weight: 600;
             letter-spacing: 1px;
+        }
+        .sobre-mi-texto em {
+            color: var(--dorado-palido);
         }
 
         /* ===== GUÍA DE USO ===== */
@@ -593,29 +696,46 @@
         .guia-pasos li {
             counter-increment: paso;
             position: relative;
-            padding-left: 44px;
-            margin-bottom: 14px;
+            padding-left: 50px;
+            margin-bottom: 16px;
             font-size: 0.95rem;
             color: var(--texto-medio);
-            line-height: 1.7;
+            line-height: 1.8;
         }
         .guia-pasos li::before {
             content: counter(paso);
             position: absolute;
             left: 0;
-            top: 0;
-            width: 30px;
-            height: 30px;
+            top: -1px;
+            width: 34px;
+            height: 34px;
             background: transparent;
             color: var(--dorado-envejecido);
             border: 1px solid var(--dorado-envejecido);
             border-radius: 2px;
             text-align: center;
-            line-height: 28px;
+            line-height: 32px;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-family: 'Cinzel', serif;
-            text-shadow: 0 0 6px rgba(184, 150, 62, 0.5);
+            text-shadow: 0 0 8px rgba(166, 132, 46, 0.6);
+            clip-path: var(--clip-poligono-sm);
+        }
+        .info-adicional {
+            background: rgba(8, 18, 30, 0.6);
+            border: 1px solid rgba(166, 132, 46, 0.25);
+            padding: 16px 20px;
+            border-radius: 2px;
+            margin-top: 16px;
+            clip-path: var(--clip-poligono-sm);
+        }
+        .info-adicional p {
+            margin: 6px 0;
+            color: var(--texto-medio);
+            font-size: 0.9rem;
+        }
+        .info-adicional strong {
+            color: var(--dorado-claro);
         }
 
         /* ===== CLABE OCULTA ===== */
@@ -635,15 +755,15 @@
             text-transform: uppercase;
         }
         .clabe-boton:hover {
-            color: var(--dorado-palido);
-            text-shadow: 0 0 8px rgba(184, 150, 62, 0.5);
+            color: var(--dorado-brillo);
+            text-shadow: 0 0 10px rgba(166, 132, 46, 0.6);
         }
         .clabe-valor {
             display: none;
-            background: rgba(10, 21, 34, 0.9);
-            padding: 12px 18px;
+            background: rgba(5, 14, 24, 0.9);
+            padding: 14px 20px;
             border-radius: 2px;
-            margin-top: 8px;
+            margin-top: 10px;
             font-family: 'Courier New', monospace;
             letter-spacing: 3px;
             font-size: 0.9rem;
@@ -651,7 +771,8 @@
             border: 1px dashed var(--dorado-envejecido);
             text-align: center;
             color: var(--blanco-hueso);
-            backdrop-filter: blur(3px);
+            backdrop-filter: blur(4px);
+            clip-path: var(--clip-poligono-sm);
         }
         .clabe-valor.visible {
             display: block;
@@ -662,21 +783,22 @@
         .consentimiento-check {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            margin: 12px 0;
+            gap: 12px;
+            margin: 14px 0;
         }
         .consentimiento-check input {
-            margin-top: 2px;
-            width: 18px;
-            height: 18px;
+            margin-top: 3px;
+            width: 20px;
+            height: 20px;
             cursor: pointer;
             accent-color: var(--dorado-envejecido);
+            flex-shrink: 0;
         }
         .consentimiento-check label {
             font-size: 0.9rem;
             color: var(--texto-medio);
             cursor: pointer;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         .consentimiento-check label strong {
             color: var(--dorado-claro);
@@ -685,13 +807,22 @@
         /* ===== FOOTER ===== */
         footer {
             text-align: center;
-            padding: 28px;
+            padding: 30px;
             color: var(--texto-oscuro);
             font-size: 0.8rem;
-            letter-spacing: 3px;
-            border-top: 1px solid rgba(184, 150, 62, 0.2);
+            letter-spacing: 4px;
+            border-top: 2px solid rgba(166, 132, 46, 0.2);
             font-family: 'Cinzel', serif;
             text-transform: uppercase;
+            position: relative;
+        }
+        footer::before {
+            content: '⬡';
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dorado-envejecido);
+            opacity: 0.5;
         }
         footer a {
             color: var(--dorado-envejecido);
@@ -700,51 +831,57 @@
         }
         footer a:hover {
             color: var(--dorado-claro);
-            text-shadow: 0 0 6px rgba(184, 150, 62, 0.4);
+            text-shadow: 0 0 8px rgba(166, 132, 46, 0.5);
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .logo-sforza {
-                font-size: 2.4rem;
-                letter-spacing: 4px;
+                font-size: 2.6rem;
+                letter-spacing: 5px;
             }
             .logo-sforza::before,
             .logo-sforza::after {
                 font-size: 1rem;
             }
-            .logo-sforza::before { left: -32px; }
-            .logo-sforza::after { right: -32px; }
+            .logo-sforza::before { left: -36px; }
+            .logo-sforza::after { right: -36px; }
             section {
-                padding: 20px 16px;
-                margin: 16px 0;
+                padding: 22px 16px;
+                margin: 18px 0;
+                clip-path: var(--clip-poligono-sm);
             }
             section h2 {
-                font-size: 1.1rem;
-                letter-spacing: 2px;
+                font-size: 1.2rem;
+                letter-spacing: 3px;
             }
             .ornamento-flotante {
-                opacity: 0.07;
+                opacity: 0.06;
+                font-size: 1.3rem;
             }
             .oraculo-carta {
-                width: 140px;
-                height: 200px;
+                width: 145px;
+                height: 210px;
             }
             .girasol-icono {
-                width: 100px;
-                height: 100px;
+                width: 110px;
+                height: 110px;
             }
             .girasol-icono svg {
-                width: 65px;
-                height: 65px;
+                width: 70px;
+                height: 70px;
             }
             .btn {
                 padding: 10px 20px;
-                font-size: 0.8rem;
+                font-size: 0.75rem;
                 letter-spacing: 2px;
             }
             .btn-agendar {
-                padding: 12px 24px;
+                padding: 12px 26px;
+                font-size: 0.85rem;
+            }
+            .modal-contenido {
+                padding: 24px 16px;
             }
         }
 
@@ -753,18 +890,18 @@
                 padding: 10px 8px 30px;
             }
             section {
-                padding: 14px 10px;
+                padding: 16px 10px;
             }
             .logo-sforza {
-                font-size: 1.8rem;
-                letter-spacing: 2px;
+                font-size: 2rem;
+                letter-spacing: 3px;
             }
             .oraculo-carta {
-                width: 120px;
-                height: 170px;
+                width: 125px;
+                height: 180px;
             }
-            .modal-contenido {
-                padding: 20px 14px;
+            .carta-reverso .simbolo {
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -772,137 +909,163 @@
 <body>
 
     <!-- ========== ORNAMENTOS FLOTANTES (Runas del Vacío) ========== -->
-    <div class="ornamento-flotante orn-1" aria-hidden="true">❖</div>
+    <div class="ornamento-flotante orn-1" aria-hidden="true">⬡</div>
     <div class="ornamento-flotante orn-2" aria-hidden="true">⛧</div>
-    <div class="ornamento-flotante orn-3" aria-hidden="true">⬡</div>
-    <div class="ornamento-flotante orn-4" aria-hidden="true">◈</div>
+    <div class="ornamento-flotante orn-3" aria-hidden="true">◈</div>
+    <div class="ornamento-flotante orn-4" aria-hidden="true">❖</div>
     <div class="ornamento-flotante orn-5" aria-hidden="true">⫸</div>
     <div class="ornamento-flotante orn-6" aria-hidden="true">⬟</div>
+    <div class="ornamento-flotante orn-7" aria-hidden="true">◉</div>
+    <div class="ornamento-flotante orn-8" aria-hidden="true">⧖</div>
 
     <!-- ========== CONTENEDOR PRINCIPAL ========== -->
     <div class="contenedor-principal">
 
         <!-- ===== HEADER ===== -->
         <header>
-            <div class="decoracion-header" aria-hidden="true">
-                <span>◈</span><span>❖</span><span>⬡</span><span>❖</span><span>◈</span>
+            <div class="marco-superior" aria-hidden="true">
+                <span class="linea"></span><span class="rombo">◈</span><span class="linea"></span>
             </div>
             <h1 class="logo-sforza">Sforza</h1>
-            <p class="subtitulo-header">· el vacío susurra verdades ·</p>
+            <p class="subtitulo-header">· donde el destino encuentra su voz ·</p>
+            <div class="decoracion-header" aria-hidden="true">
+                <span>◈</span><span>⬡</span><span>❖</span><span>⬡</span><span>◈</span>
+            </div>
         </header>
 
         <!-- ===== 1. GUÍA DE USO / TUTORIAL (ARRIBA) ===== -->
         <section id="guia">
+            <div class="esquina-ornamento esquina-sup-izq"></div>
+            <div class="esquina-ornamento esquina-sup-der"></div>
+            <div class="esquina-ornamento esquina-inf-izq"></div>
+            <div class="esquina-ornamento esquina-inf-der"></div>
             <h2>🜁 Guía de Uso</h2>
             <h3>📜 Para agendar una lectura:</h3>
             <ol class="guia-pasos">
-                <li>Haz clic en los botones <strong>"AGENDAR"</strong> que encontrarás en la siguiente sección.</li>
-                <li>Lee y <strong>acepta el consentimiento informado</strong>.</li>
-                <li>Serás redirigido a <strong>Calendly</strong> para elegir fecha y hora.</li>
-                <li>Recibirás <strong>confirmación por correo electrónico</strong>.</li>
+                <li>Haz clic en los botones <strong>"AGENDAR"</strong> que encuentras en la sección de abajo.</li>
+                <li>Lee y <strong>acepta el consentimiento informado</strong> (es obligatorio para continuar).</li>
+                <li>Serás redirigido a <strong>Calendly</strong> para que elijas la fecha y hora que más te convenga.</li>
+                <li>Recibirás un <strong>correo de confirmación</strong> con todos los detalles.</li>
             </ol>
             <h3>🔮 En esta página encontrarás:</h3>
-            <ul style="list-style:'❖ ';padding-left:22px;line-height:2.2;color:var(--texto-medio);">
-                <li><strong>Oráculo de Sí/No</strong> — una carta del tarot responde tu pregunta cerrada.</li>
-                <li><strong>Sobre Valentina Sforza</strong> — conoce a la lectora detrás de las cartas.</li>
+            <ul style="list-style:'❖ ';padding-left:22px;line-height:2.4;color:var(--texto-medio);">
+                <li><strong>Oráculo de Sí/No</strong> — saca una carta del tarot para responder tu pregunta cerrada.</li>
+                <li><strong>Sobre Valentina Sforza</strong> — conoce a la persona detrás de las cartas.</li>
             </ul>
-            <p style="font-style:italic;color:var(--texto-medio);margin-top:12px;letter-spacing:1px;">
-                🧙‍♂️ Ante cualquier duda, consulta a <strong>Cautín</strong>, mi astrólogo y chatbot de confianza
-                <span style="display:inline-block;animation:flotarVacio 2s ease-in-out infinite;">⫸</span>
-                (esquina inferior derecha).
+            <p style="font-style:italic;color:var(--texto-medio);margin-top:14px;letter-spacing:1.5px;">
+                🧙‍♂️ Si tienes cualquier duda, consulta a <strong>Cautín</strong>, mi astrólogo y chatbot de confianza
+                <span style="display:inline-block;animation:flotarVacio 2.5s ease-in-out infinite;">⫸</span>
+                (lo encuentras en la esquina inferior derecha).
             </p>
         </section>
 
         <!-- ===== 2. SERVICIO Y AGENDAMIENTO (SEGUNDO) ===== -->
         <section id="servicio">
+            <div class="esquina-ornamento esquina-sup-izq"></div>
+            <div class="esquina-ornamento esquina-sup-der"></div>
+            <div class="esquina-ornamento esquina-inf-izq"></div>
+            <div class="esquina-ornamento esquina-inf-der"></div>
             <h2>🌟 Lectura de Tarot</h2>
-            <p style="font-size:1.15rem;text-align:center;margin:10px 0;color:var(--blanco-espectral);letter-spacing:2px;">
+            <p style="font-size:1.15rem;text-align:center;margin:12px 0;color:var(--blanco-espectral);letter-spacing:2.5px;">
                 <strong>⏱️ 30 minutos</strong> &nbsp;·&nbsp;
                 <strong>❓ Preguntas ilimitadas</strong> &nbsp;·&nbsp;
                 <strong>💲 $43</strong>
             </p>
             <p style="text-align:center;color:var(--texto-medio);font-style:italic;letter-spacing:1px;">
-                Una sesión íntima en las sombras del Vacío. Sin prisas, con toda la atención que merece tu consulta.
+                Una sesión tranquila y enfocada en lo que necesitas explorar. Sin prisas, con toda la atención.
             </p>
-            <div style="text-align:center;margin:24px 0;">
+
+            <!-- Info adicional sobre atención -->
+            <div class="info-adicional">
+                <p>📅 <strong>Entre semana:</strong> Solo atiendo presencialmente en <strong>CU</strong> (Ciudad Universitaria).</p>
+                <p>💻 <strong>Fines de semana:</strong> Únicamente en línea, por <strong>chat o videollamada</strong> (como tú prefieras).</p>
+                <p>⏰ <strong>Tolerancia:</strong> 10 minutos de cortesía por lectura.</p>
+            </div>
+
+            <div style="text-align:center;margin:26px 0;">
                 <button class="btn btn-agendar" onclick="abrirConsentimiento()" aria-label="Agendar lectura de tarot">
                     🔮 Agendar Lectura
                 </button>
             </div>
-            <p style="text-align:center;font-size:0.75rem;color:var(--texto-oscuro);letter-spacing:2px;text-transform:uppercase;">
-                Al agendar aceptas el consentimiento informado
+            <p style="text-align:center;font-size:0.72rem;color:var(--texto-oscuro);letter-spacing:2.5px;text-transform:uppercase;">
+                * Requiere aceptar el consentimiento informado
             </p>
         </section>
 
         <!-- ===== 3. SOBRE MÍ (TERCERO) ===== -->
         <section id="sobre-mi">
+            <div class="esquina-ornamento esquina-sup-izq"></div>
+            <div class="esquina-ornamento esquina-sup-der"></div>
+            <div class="esquina-ornamento esquina-inf-izq"></div>
+            <div class="esquina-ornamento esquina-inf-der"></div>
             <h2>🌻 Sobre Mí</h2>
             <div class="sobre-mi-contenedor">
                 <div class="girasol-icono" aria-hidden="true">
-                    <!-- Girasol en tonos dorados y azules -->
+                    <!-- Girasol en tonos dorados y azules profundos -->
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <g fill="#b8963e">
-                            <ellipse cx="50" cy="14" rx="6" ry="14" transform="rotate(0 50 50)"/>
-                            <ellipse cx="50" cy="14" rx="6" ry="14" transform="rotate(30 50 50)"/>
-                            <ellipse cx="50" cy="14" rx="6" ry="14" transform="rotate(60 50 50)"/>
-                            <ellipse cx="50" cy="14" rx="6" ry="14" transform="rotate(90 50 50)"/>
-                            <ellipse cx="50" cy="14" rx="6" ry="14" transform="rotate(120 50 50)"/>
-                            <ellipse cx="50" cy="14" rx="6" ry="14" transform="rotate(150 50 50)"/>
-                            <ellipse cx="50" cy="14" rx="6" ry="14" transform="rotate(180 50 50)"/>
-                            <ellipse cx="50" cy="14" rx="6" ry="14" transform="rotate(210 50 50)"/>
-                            <ellipse cx="50" cy="14" rx="6" ry="14" transform="rotate(240 50 50)"/>
-                            <ellipse cx="50" cy="14" rx="6" ry="14" transform="rotate(270 50 50)"/>
-                            <ellipse cx="50" cy="14" rx="6" ry="14" transform="rotate(300 50 50)"/>
-                            <ellipse cx="50" cy="14" rx="6" ry="14" transform="rotate(330 50 50)"/>
+                        <g fill="#a6842e">
+                            <ellipse cx="50" cy="14" rx="6" ry="15" transform="rotate(0 50 50)"/>
+                            <ellipse cx="50" cy="14" rx="6" ry="15" transform="rotate(30 50 50)"/>
+                            <ellipse cx="50" cy="14" rx="6" ry="15" transform="rotate(60 50 50)"/>
+                            <ellipse cx="50" cy="14" rx="6" ry="15" transform="rotate(90 50 50)"/>
+                            <ellipse cx="50" cy="14" rx="6" ry="15" transform="rotate(120 50 50)"/>
+                            <ellipse cx="50" cy="14" rx="6" ry="15" transform="rotate(150 50 50)"/>
+                            <ellipse cx="50" cy="14" rx="6" ry="15" transform="rotate(180 50 50)"/>
+                            <ellipse cx="50" cy="14" rx="6" ry="15" transform="rotate(210 50 50)"/>
+                            <ellipse cx="50" cy="14" rx="6" ry="15" transform="rotate(240 50 50)"/>
+                            <ellipse cx="50" cy="14" rx="6" ry="15" transform="rotate(270 50 50)"/>
+                            <ellipse cx="50" cy="14" rx="6" ry="15" transform="rotate(300 50 50)"/>
+                            <ellipse cx="50" cy="14" rx="6" ry="15" transform="rotate(330 50 50)"/>
                         </g>
-                        <circle cx="50" cy="50" r="16" fill="#1b2d45"/>
-                        <circle cx="50" cy="50" r="11" fill="#0d1b2a"/>
-                        <circle cx="50" cy="50" r="6" fill="#040810"/>
-                        <g fill="#b8963e" opacity="0.7">
-                            <circle cx="45" cy="44" r="1.6"/><circle cx="55" cy="44" r="1.6"/>
-                            <circle cx="42" cy="52" r="1.6"/><circle cx="58" cy="52" r="1.6"/>
-                            <circle cx="50" cy="50" r="1.3"/><circle cx="46" cy="56" r="1.4"/>
-                            <circle cx="54" cy="56" r="1.4"/>
+                        <circle cx="50" cy="50" r="17" fill="#12253b"/>
+                        <circle cx="50" cy="50" r="12" fill="#0b1829"/>
+                        <circle cx="50" cy="50" r="7" fill="#030810"/>
+                        <g fill="#c9a94e" opacity="0.8">
+                            <circle cx="45" cy="44" r="1.7"/><circle cx="55" cy="44" r="1.7"/>
+                            <circle cx="42" cy="52" r="1.7"/><circle cx="58" cy="52" r="1.7"/>
+                            <circle cx="50" cy="50" r="1.4"/><circle cx="46" cy="56" r="1.5"/>
+                            <circle cx="54" cy="56" r="1.5"/><circle cx="50" cy="41" r="1.3"/>
                         </g>
-                        <ellipse cx="30" cy="72" rx="14" ry="5" fill="#3d5a40" transform="rotate(-35 30 72)"/>
-                        <ellipse cx="70" cy="74" rx="13" ry="5" fill="#3d5a40" transform="rotate(30 70 74)"/>
-                        <line x1="50" y1="66" x2="50" y2="90" stroke="#5a7a5d" stroke-width="2.5" stroke-linecap="round"/>
+                        <ellipse cx="28" cy="74" rx="15" ry="5.5" fill="#2a4a30" transform="rotate(-35 28 74)"/>
+                        <ellipse cx="72" cy="76" rx="14" ry="5" fill="#2a4a30" transform="rotate(30 72 76)"/>
+                        <line x1="50" y1="67" x2="50" y2="92" stroke="#3d5a40" stroke-width="2.5" stroke-linecap="round"/>
                     </svg>
                 </div>
                 <div class="sobre-mi-texto">
+                    <p><strong>¡Hola!</strong></p>
                     <p>
-                        Soy <strong>Valentina Sforza</strong>. Caminante del Vacío y lectora de los susurros que otros no escuchan.
-                        Me apasiona acompañar a las personas en su travesía de autoconocimiento. Creo en la honestidad absoluta:
-                        <em>me niego a engañar a la gente con cosas que no veo</em>.
+                        Soy <strong>Valentina S.</strong> y soy tarotista con más de <strong>4 años de experiencia</strong>, me gusta ayudar y conocer a la gente así como aprender; me considero alguien inquieta y justamente de ahí han salido muchos pasatiempos y pasiones mías, entre ellos, el tarot, las cartas astrales y otro tipo de artes.
                     </p>
                     <p>
-                        Con casi <strong>5 años de experiencia</strong> leyendo tarot y <strong>cartas astrales</strong>,
-                        ofrezco una mirada ética, profunda y sin charlatanería.
-                        Para información sobre lectura de carta astral, contáctame por WhatsApp.
+                        Me gusta la jardinería, la cocina, los animales, la tecnología y la música intensa (soy fan del violín y del piano, tal vez en un futuro logre tocarlos).
                     </p>
                     <p>
-                        📍 Solo atiendo <strong>presencialmente en CU</strong> (Ciudad Universitaria).
+                        Si deseas contratarme, te aseguro que no te arrepentirás. <em>Será un placer conocerte. :)</em>
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- ===== 4. ORÁCULO DE SÍ/NO (ABAJO) ===== -->
+        <!-- ===== 4. ORÁCULO DE SÍ/NO ===== -->
         <section id="oraculo">
+            <div class="esquina-ornamento esquina-sup-izq"></div>
+            <div class="esquina-ornamento esquina-sup-der"></div>
+            <div class="esquina-ornamento esquina-inf-izq"></div>
+            <div class="esquina-ornamento esquina-inf-der"></div>
             <h2>🔮 Oráculo de Sí / No</h2>
-            <p style="text-align:center;color:var(--texto-medio);margin-bottom:16px;letter-spacing:1px;">
-                Formula una pregunta cerrada. El Vacío responderá a través de una carta.
+            <p style="text-align:center;color:var(--texto-medio);margin-bottom:18px;letter-spacing:1px;">
+                Escribe una pregunta que se pueda responder con sí o no. El destino te revelará una carta.
             </p>
             <input
             type="text"
             id="preguntaInput"
             class="pregunta-input"
-            placeholder="Escribe tu pregunta de sí o no..."
+            placeholder="Escribe tu pregunta de sí o no aquí..."
             maxlength="200"
             aria-label="Escribe tu pregunta de sí o no"
             >
             <p id="errorPregunta">⚠️ Primero escribe una pregunta para poder sacar una carta.</p>
-            <div style="text-align:center;margin:18px 0;">
+            <div style="text-align:center;margin:20px 0;">
                 <button class="btn btn-agendar btn-pequeno" id="btnSacarCarta" onclick="sacarCarta()" disabled>
                     🃏 Sacar una carta
                 </button>
@@ -926,10 +1089,24 @@
 
         <!-- ===== CONTACTO Y PAGO ===== -->
         <section id="contacto">
+            <div class="esquina-ornamento esquina-sup-izq"></div>
+            <div class="esquina-ornamento esquina-sup-der"></div>
+            <div class="esquina-ornamento esquina-inf-izq"></div>
+            <div class="esquina-ornamento esquina-inf-der"></div>
             <h2>📬 Contacto y Pago</h2>
-            <p style="color:var(--texto-medio);"><strong>📧 Correo:</strong> <a href="mailto:vs9656271@gmail.com" style="color:var(--dorado-claro);text-decoration:none;">vs9656271@gmail.com</a></p>
-            <p style="color:var(--texto-medio);"><strong>📱 WhatsApp:</strong> <a href="https://wa.me/525547688253" target="_blank" rel="noopener" style="color:var(--dorado-claro);text-decoration:none;">+52 55 4768 8253</a></p>
-            <hr style="border:1px solid rgba(184,150,62,0.2);margin:18px 0;">
+            <p style="color:var(--texto-medio);line-height:2.2;">
+                <strong>📱 WhatsApp:</strong>
+                <a href="https://wa.me/525547688253" target="_blank" rel="noopener" style="color:var(--dorado-claro);text-decoration:none;">5547688253</a>
+            </p>
+            <p style="color:var(--texto-medio);line-height:2.2;">
+                <strong>📧 Correo:</strong>
+                <a href="mailto:vs9656271@gmail.com" style="color:var(--dorado-claro);text-decoration:none;">vs9656271@gmail.com</a>
+            </p>
+            <p style="color:var(--texto-medio);line-height:2.2;">
+                <strong>📷 Instagram:</strong>
+                <a href="https://instagram.com/valen_s.sforza" target="_blank" rel="noopener" style="color:var(--dorado-claro);text-decoration:none;">@valen_s.sforza</a>
+            </p>
+            <hr style="border:1px solid rgba(166,132,46,0.2);margin:20px 0;">
             <p style="color:var(--texto-medio);"><strong>💳 Pago por transferencia:</strong></p>
             <div class="clabe-oculta">
                 <span class="clabe-boton" onclick="toggleClabe()" id="clabeBoton">
@@ -940,8 +1117,8 @@
                     <br><small style="color:var(--texto-oscuro);">Banco Santander · Valentina Sforza</small>
                 </div>
             </div>
-            <p style="font-size:0.7rem;color:var(--texto-oscuro);margin-top:10px;letter-spacing:1px;text-transform:uppercase;">
-                * Los datos bancarios permanecen semi-ocultos por seguridad
+            <p style="font-size:0.68rem;color:var(--texto-oscuro);margin-top:12px;letter-spacing:1.5px;text-transform:uppercase;">
+                * Datos bancarios semi-ocultos por seguridad
             </p>
         </section>
 
@@ -949,7 +1126,7 @@
 
     <!-- ===== FOOTER ===== -->
     <footer>
-        <p>❖ Sforza © 2025 · El Vacío observa · Lectura de Tarot con ética ❖</p>
+        <p>❖ Sforza © 2025 · El destino aguarda · Lectura de Tarot con ética ❖</p>
     </footer>
 
     <!-- ========== MODAL DE CONSENTIMIENTO INFORMADO ========== -->
@@ -958,24 +1135,24 @@
             <button class="modal-cerrar" onclick="cerrarConsentimiento()" aria-label="Cerrar">⛧</button>
             <h3 class="modal-titulo">📜 Consentimiento Informado</h3>
             <div class="modal-texto">
-                <p><strong>Valentina Sforza</strong> informa lo siguiente antes de agendar cualquier lectura:</p>
-                <ul style="padding-left:18px;line-height:2;margin:10px 0;color:var(--texto-medio);">
+                <p><strong>Valentina Sforza</strong> te informa lo siguiente antes de que puedas agendar cualquier lectura:</p>
+                <ul>
                     <li>🚫 <strong>No atiendo</strong> a personas con situaciones mentales inestables o que requieran atención psiquiátrica.</li>
-                    <li>⚠️ <strong>No me responsabilizo</strong> de problemas personales derivados de la interpretación de la lectura.</li>
+                    <li>⚠️ <strong>No me responsabilizo</strong> de problemas personales que puedan derivarse de la interpretación de la lectura.</li>
                     <li>🩺 <strong>No sustituyo</strong> a ningún profesional médico, psicológico o terapéutico.</li>
-                    <li>🔞 Solo atiendo a <strong>personas mayores de edad</strong> (18+).</li>
-                    <li>🚫 <strong>No hago amarres</strong>, trabajos de magia ni manipulación energética.</li>
-                    <li>✅ Esto <strong>no es charlatanería</strong>; me tomo mi trabajo con seriedad y respeto.</li>
-                    <li>🔒 Soy <strong>discreta</strong> con tu información. Tus datos y consultas son confidenciales.</li>
+                    <li>🔞 Solo atiendo a <strong>personas mayores de edad</strong> (18 años o más).</li>
+                    <li>🚫 <strong>No hago amarres</strong>, trabajos de magia ni ningún tipo de manipulación energética.</li>
+                    <li>✅ Esto <strong>no es charlatanería</strong>; me tomo mi trabajo con total seriedad y respeto.</li>
+                    <li>🔒 Soy completamente <strong>discreta</strong> con tu información. Tus datos y consultas son confidenciales.</li>
                 </ul>
-                <p style="font-weight:bold;margin-top:10px;color:var(--dorado-claro);">
-                    Si no aceptas estos términos, no podrás agendar una lectura.
+                <p style="font-weight:bold;margin-top:12px;color:var(--dorado-claro);font-size:1rem;">
+                    Es necesario que aceptes estos términos para poder agendar una lectura.
                 </p>
             </div>
             <div class="consentimiento-check">
                 <input type="checkbox" id="checkConsentimiento">
                 <label for="checkConsentimiento">
-                    <strong>Acepto</strong> el consentimiento informado y confirmo que soy mayor de edad.
+                    <strong>Sí, acepto</strong> el consentimiento informado y confirmo que soy mayor de edad.
                 </label>
             </div>
             <div class="modal-botones">
@@ -991,11 +1168,11 @@
 
     <!-- ========== MODAL DE CALENDLY ========== -->
     <div class="modal-overlay oculto" id="modalCalendly">
-        <div class="modal-contenido" style="max-width:750px;padding:20px;">
+        <div class="modal-contenido" style="max-width:780px;padding:24px;">
             <button class="modal-cerrar" onclick="cerrarCalendly()" aria-label="Cerrar">⛧</button>
-            <h3 class="modal-titulo">📅 Elige tu fecha y hora</h3>
+            <h3 class="modal-titulo">📅 Elige la fecha y hora para tu lectura</h3>
             <!-- Calendly inline widget -->
-            <div class="calendly-inline-widget" data-url="https://calendly.com/vs9656271/cartas" style="min-width:280px;height:600px;"></div>
+            <div class="calendly-inline-widget" data-url="https://calendly.com/vs9656271/cartas" style="min-width:280px;height:620px;"></div>
         </div>
     </div>
 
@@ -1027,12 +1204,13 @@
 
             let cartaActual = null;
             let cartaVolteada = false;
+            let consentimientoAceptado = false;
 
             // ===== CARTAS DEL TAROT =====
             const cartasTarot = [
                 { nombre: 'El Sol', emoji: '☀️', significado: 'Claridad, éxito y vitalidad. Una respuesta luminosa y afirmativa.', tendencia: 'sí', fuerza: 'fuerte' },
                 { nombre: 'La Luna', emoji: '🌙', significado: 'Ilusiones, confusión y sombras. La respuesta es incierta, inclinándose al no.', tendencia: 'no', fuerza: 'media' },
-                { nombre: 'La Estrella', emoji: '⭐', significado: 'Esperanza, inspiración y renovación. El Vacío dice que sí, confía.', tendencia: 'sí', fuerza: 'fuerte' },
+                { nombre: 'La Estrella', emoji: '⭐', significado: 'Esperanza, inspiración y renovación. El universo dice que sí, confía.', tendencia: 'sí', fuerza: 'fuerte' },
                 { nombre: 'La Torre', emoji: '🗼', significado: 'Ruina, cambios bruscos y revelaciones. La respuesta es un no rotundo.', tendencia: 'no', fuerza: 'fuerte' },
                 { nombre: 'El Mundo', emoji: '🌍', significado: 'Culminación, logro y plenitud. Un sí definitivo y expansivo.', tendencia: 'sí', fuerza: 'muy fuerte' },
                 { nombre: 'El Colgado', emoji: '🙃', significado: 'Pausa, sacrificio y nueva perspectiva. No es el momento; la respuesta es no.', tendencia: 'no', fuerza: 'media' },
@@ -1120,48 +1298,83 @@
                 significadoCarta.textContent = '---';
             }
 
-            // ===== CONSENTIMIENTO =====
+            // ===== CONSENTIMIENTO INFORMADO (OBLIGATORIO) =====
             window.abrirConsentimiento = function() {
-                if (localStorage.getItem('sforza_consentimiento_aceptado') === 'true') {
-                    abrirCalendly();
-                    return;
-                }
+                // Siempre mostrar el modal de consentimiento, sin importar si ya aceptó antes
                 modalConsentimiento.classList.remove('oculto');
                 checkConsentimiento.checked = false;
                 btnConfirmarAgendar.disabled = true;
+                consentimientoAceptado = false;
                 document.body.style.overflow = 'hidden';
             };
+
             window.cerrarConsentimiento = function() {
                 modalConsentimiento.classList.add('oculto');
                 document.body.style.overflow = '';
+                checkConsentimiento.checked = false;
+                btnConfirmarAgendar.disabled = true;
+                consentimientoAceptado = false;
             };
+
             checkConsentimiento.addEventListener('change', function() {
                 btnConfirmarAgendar.disabled = !this.checked;
+                consentimientoAceptado = this.checked;
             });
+
             window.confirmarAgendamiento = function() {
-                if (!checkConsentimiento.checked) return;
+                if (!checkConsentimiento.checked) {
+                    alert('Debes aceptar el consentimiento informado para continuar.');
+                    return;
+                }
+                // Guardar en localStorage que aceptó
                 localStorage.setItem('sforza_consentimiento_aceptado', 'true');
                 localStorage.setItem('sforza_consentimiento_fecha', new Date().toISOString());
+                consentimientoAceptado = true;
+                // Cerrar modal de consentimiento
                 modalConsentimiento.classList.add('oculto');
                 document.body.style.overflow = '';
+                // Abrir Calendly
                 abrirCalendly();
             };
+
             function abrirCalendly() {
+                if (!consentimientoAceptado && localStorage.getItem('sforza_consentimiento_aceptado') !== 'true') {
+                    // Si por alguna razón no se aceptó, volver a mostrar consentimiento
+                    abrirConsentimiento();
+                    return;
+                }
                 modalCalendly.classList.remove('oculto');
                 document.body.style.overflow = 'hidden';
             }
+
             window.cerrarCalendly = function() {
                 modalCalendly.classList.add('oculto');
                 document.body.style.overflow = '';
             };
+
+            // Cerrar modales con tecla Escape
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
-                    if (!modalConsentimiento.classList.contains('oculto')) cerrarConsentimiento();
-                    if (!modalCalendly.classList.contains('oculto')) cerrarCalendly();
+                    if (!modalConsentimiento.classList.contains('oculto')) {
+                        cerrarConsentimiento();
+                    }
+                    if (!modalCalendly.classList.contains('oculto')) {
+                        cerrarCalendly();
+                    }
                 }
             });
-            modalConsentimiento.addEventListener('click', function(e) { if (e.target === modalConsentimiento) cerrarConsentimiento(); });
-            modalCalendly.addEventListener('click', function(e) { if (e.target === modalCalendly) cerrarCalendly(); });
+
+            // Cerrar modales al hacer clic fuera del contenido
+            modalConsentimiento.addEventListener('click', function(e) {
+                if (e.target === modalConsentimiento) {
+                    cerrarConsentimiento();
+                }
+            });
+            modalCalendly.addEventListener('click', function(e) {
+                if (e.target === modalCalendly) {
+                    cerrarCalendly();
+                }
+            });
 
             // ===== CLABE OCULTA =====
             window.toggleClabe = function() {
@@ -1176,8 +1389,9 @@
 
             // ===== INICIALIZACIÓN =====
             btnSacarCarta.classList.add('btn-deshabilitado');
-            console.log('❖ Sforza · El Vacío aguarda. Página lista.');
-            console.log('🧙‍♂️ Cautín (chatbot) en la esquina inferior derecha.');
+            console.log('❖ Sforza · Página lista. El destino aguarda.');
+            console.log('🧙‍♂️ Cautín (chatbot) está en la esquina inferior derecha.');
+            console.log('📜 Consentimiento: Debe aceptarse explícitamente antes de agendar.');
         })();
     </script>
 </body>
