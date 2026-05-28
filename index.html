@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sforza · Lectura de Tarot</title>
+
+    <!-- ========== ESTILOS ========== -->
+    <style>
+        :root {
+            --crema: #fdf6f0;
+            --crema-oscuro: #f5ebe0;
+            --lavanda: #c3aed6;
+            --lavanda-claro: #e8dff5;
+            --lavanda-oscuro: #9b7db8;
+            --rosa: #f2c4d0;
+            --rosa-claro: #fce4ec;
+            --rosa-peonia: #f8bbd0;
+            --verde-monstera: #7da87b;
+            --verde-claro: #c8e6c9;
+            --verde-oscuro: #5c8a5a;
+            --dorado: #c9a96e;
+            --dorado-claro: #e8d5b0;
+            --texto: #4a3f35;
+            --texto-claro: #6b5e52;
+            --blanco: #fffdf9;
+            --sombra: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --sombra-fuerte: 0 8px 40px rgba(0, 0, 0, 0.12);
+            --borde-redondo: 20px;
+            --borde-redondo-sm: 12px;
+            --transicion: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', 'Segoe UI', serif;
+            background-color: var(--crema);
+            color: var(--texto);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse at 10% 20%, rgba(195, 174, 214, 0.13) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 65%, rgba(242, 196, 208, 0.15) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 80%, rgba(125, 168, 123, 0.08) 0%, transparent 55%),
+                radial-gradient(ellipse at 30% 70%, rgba(248, 187, 208, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* ===== FLORES DECORATIVAS DE FONDO (SVG inline via CSS) ===== */
+        .flor-decorativa {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.35;
+            transition: opacity 0.8s ease;
+        }
+        .flor-decorativa:hover {
+            opacity: 0.55;
+        }
+        .flor-decorativa svg {
+            width: 100%;
+            height: 100%;
+        }
+        .flor-1 {
+            top: 8%;
+            left: 4%;
+            width: 110px;
+            height: 110px;
+            animation: flotar 7s ease-in-out infinite;
+        }
+        .flor-2 {
+            top: 25%;
+            right: 5%;
+            width: 95px;
+            height: 95px;
+            animation: flotar 9s ease-in-out 1s infinite;
+        }
+        .flor-3 {
+            bottom: 18%;
+            left: 6%;
+            width: 120px;
+            height: 120px;
+            animation: flotar 8s ease-in-out 2s infinite;
+        }
+        .flor-4 {
+            top: 55%;
+            right: 8%;
+            width: 100px;
+            height: 100px;
+            animation: flotar 10s ease-in-out 0.5s infinite;
+        }
+        .flor-5 {
+            top: 70%;
+            left: 50%;
+            width: 80px;
+            height: 80px;
+            animation: flotar 8.5s ease-in-out 3s infinite;
+        }
+        .flor-6 {
+            top: 12%;
+            left: 45%;
+            width: 75px;
+            height: 75px;
+            animation: flotar 9.5s ease-in-out 1.5s infinite;
+        }
+
+        @keyframes flotar {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateY(-14px) rotate(3deg) scale(1.04);
+            }
+            50% {
+                transform: translateY(-6px) rotate(-2deg) scale(0.97);
+            }
+            75% {
+                transform: translateY(-18px) rotate(1deg) scale(1.03);
+            }
+        }
+
+        /* ===== CONTENEDOR PRINCIPAL ===== */
+        .contenedor-principal {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 24px 40px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            text-align: center;
+            padding: 30px 20px 10px;
+            position: relative;
+        }
+        .logo-sforza {
+            font-size: 3.2rem;
+            font-weight: bold;
+            letter-spacing: 4px;
+            color: var(--texto);
+            position: relative;
+            display: inline-block;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            text-shadow: 1px 1px 0 rgba(201, 169, 110, 0.3);
+        }
+        .logo-sforza::after {
+            content: '🔮';
+            position: absolute;
+            right: -45px;
+            top: -8px;
+            font-size: 1.4rem;
+            animation: flotar 4s ease-in-out infinite;
+        }
+        .subtitulo-header {
+            color: var(--texto-claro);
+            font-style: italic;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+        .decoracion-header {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .decoracion-header span {
+            font-size: 1.5rem;
+            animation: flotar 5s ease-in-out infinite;
+        }
+        .decoracion-header span:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+        .decoracion-header span:nth-child(3) {
+            animation-delay: 1.2s;
+        }
+        .decoracion-header span:nth-child(4) {
+            animation-delay: 1.8s;
+        }
+        .decoracion-header span:nth-child(5) {
+            animation-delay: 2.4s;
+        }
+
+        /* ===== SECCIONES ===== */
+        section {
+            background: var(--blanco);
+            border-radius: var(--borde-redondo);
+            padding: 32px 28px;
+            margin: 28px 0;
+            box-shadow: var(--sombra);
+            border: 1px solid rgba(201, 169, 110, 0.15);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transicion);
+        }
+        section:hover {
+            box-shadow: var(--sombra-fuerte);
+            transform: translateY(-2px);
+        }
+        section h2 {
+            font-size: 1.7rem;
+            color: var(--texto);
+            margin-bottom: 16px;
+            position: relative;
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--dorado);
+            border-radius: 2px;
+        }
+        section h3 {
+            color: var(--texto-claro);
+            margin: 12px 0 8px;
+            font-size: 1.15rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== BOTONES ===== */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border: none;
+            transition: var(--transicion);
+            text-decoration: none;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-agendar {
+            background: var(--dorado);
+            color: #fff;
+            box-shadow: 0 6px 24px rgba(201, 169, 110, 0.35);
+            font-size: 1.05rem;
+        }
+        .btn-agendar:hover {
+            background: #b8944f;
+            box-shadow: 0 10px 32px rgba(201, 169, 110, 0.5);
+            transform: translateY(-3px);
+        }
+        .btn-agendar:active {
+            transform: scale(0.96);
+            box-shadow: 0 4px 14px rgba(201, 169, 110, 0.3);
+        }
+        .btn-secundario {
+            background: transparent;
+            color: var(--dorado);
+            border: 2px solid var(--dorado);
+        }
+        .btn-secundario:hover {
+            background: var(--dorado);
+            color: #fff;
+        }
+        .btn-pequeno {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .modal-contenido {
+            background: var(--blanco);
+            border-radius: var(--borde-redondo);
+            padding: 32px 28px;
+            max-width: 600px;
+            width: 92%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--sombra-fuerte);
+            position: relative;
+            animation: slideUp 0.35s ease;
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .modal-cerrar {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--texto-claro);
+            transition: var(--transicion);
+            z-index: 2;
+        }
+        .modal-cerrar:hover {
+            color: #c0392b;
+            transform: rotate(90deg);
+        }
+        .modal-titulo {
+            font-size: 1.3rem;
+            margin-bottom: 14px;
+            color: var(--texto);
+            letter-spacing: 1px;
+        }
+        .modal-texto {
+            font-size: 0.95rem;
+            color: var(--texto-claro);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .modal-botones {
+            display: flex;
+            gap: 14px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .oculto {
+            display: none !important;
+        }
+
+        /* ===== ORÁCULO SÍ/NO ===== */
+        .oraculo-carta {
+            width: 160px;
+            height: 230px;
+            margin: 0 auto 20px;
+            perspective: 800px;
+            cursor: pointer;
+            position: relative;
+        }
+        .carta-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .carta-inner.volteada {
+            transform: rotateY(180deg);
+        }
+        .carta-frente,
+        .carta-reverso {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--borde-redondo-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.9rem;
+            box-shadow: var(--sombra-fuerte);
+            border: 3px solid var(--dorado);
+        }
+        .carta-reverso {
+            background: linear-gradient(135deg, #2c1b3e, #4a2c5e, #2c1b3e);
+            color: var(--dorado-claro);
+            font-size: 3rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 6px;
+            transition: var(--transicion);
+        }
+        .carta-reverso:hover {
+            box-shadow: 0 12px 40px rgba(74, 44, 94, 0.4);
+            border-color: #e8d5b0;
+        }
+        .carta-reverso .simbolo {
+            font-size: 3.5rem;
+        }
+        .carta-reverso .texto-reverso {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+        .carta-frente {
+            background: var(--blanco);
+            transform: rotateY(180deg);
+            flex-direction: column;
+            padding: 16px;
+            gap: 8px;
+            color: var(--texto);
+        }
+        .carta-frente .emoji-carta {
+            font-size: 3rem;
+        }
+        .carta-frente .nombre-carta {
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 1rem;
+        }
+        .carta-frente .significado-carta {
+            font-size: 0.8rem;
+            color: var(--texto-claro);
+            line-height: 1.4;
+        }
+        .pregunta-input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 50px;
+            border: 2px solid var(--lavanda-claro);
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--blanco);
+            transition: var(--transicion);
+            color: var(--texto);
+            text-align: center;
+        }
+        .pregunta-input:focus {
+            outline: none;
+            border-color: var(--dorado);
+            box-shadow: 0 0 0 6px rgba(201, 169, 110, 0.08);
+        }
+        .respuesta-oraculo {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: var(--borde-redondo-sm);
+            background: var(--lavanda-claro);
+            color: var(--texto);
+            font-style: italic;
+            display: none;
+        }
+        .respuesta-oraculo.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* ===== JUEGO DE ESCAPE ===== */
+        .escape-contenedor {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .escape-puertas {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 18px 0;
+        }
+        .escape-puerta {
+            width: 100px;
+            height: 150px;
+            border-radius: var(--borde-redondo-sm);
+            cursor: pointer;
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transicion);
+            border: 3px solid transparent;
+            font-weight: bold;
+            position: relative;
+        }
+        .escape-puerta:hover {
+            transform: scale(1.06);
+            box-shadow: var(--sombra-fuerte);
+        }
+        .puerta-1 {
+            background: #fce4ec;
+            border-color: #f8bbd0;
+        }
+        .puerta-2 {
+            background: #e8dff5;
+            border-color: #c3aed6;
+        }
+        .puerta-3 {
+            background: #c8e6c9;
+            border-color: #a5d6a7;
+        }
+        .escape-pista {
+            font-style: italic;
+            color: var(--texto-claro);
+            margin: 10px 0;
+            letter-spacing: 1px;
+        }
+        .escape-resultado {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: var(--borde-redondo-sm);
+        }
+
+        /* ===== SECCIÓN SOBRE MÍ ===== */
+        .sobre-mi-contenedor {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .girasol-icono {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--crema-oscuro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--sombra);
+        }
+        .girasol-icono svg {
+            width: 90px;
+            height: 90px;
+        }
+        .sobre-mi-texto {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        /* ===== DATOS BANCARIOS OCULTOS ===== */
+        .clabe-oculta {
+            position: relative;
+            display: inline-block;
+        }
+        .clabe-boton {
+            cursor: pointer;
+            color: var(--dorado);
+            text-decoration: underline;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: var(--transicion);
+        }
+        .clabe-boton:hover {
+            color: #8b6f3a;
+        }
+        .clabe-valor {
+            display: none;
+            background: var(--crema-oscuro);
+            padding: 10px 16px;
+            border-radius: var(--borde-redondo-sm);
+            margin-top: 6px;
+            font-family: monospace;
+            letter-spacing: 2px;
+            font-size: 0.95rem;
+            word-break: break-all;
+            border: 1px dashed var(--dorado);
+            text-align: center;
+        }
+        .clabe-valor.visible {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* ===== CONSENTIMIENTO CHECKBOX ===== */
+        .consentimiento-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 12px 0;
+        }
+        .consentimiento-check input {
+            margin-top: 3px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--dorado);
+        }
+        .consentimiento-check label {
+            font-size: 0.9rem;
+            color: var(--texto-claro);
+            cursor: pointer;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--texto-claro);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        footer a {
+            color: var(--dorado);
+            text-decoration: none;
+            transition: var(--transicion);
+        }
+        footer a:hover {
+            text-decoration: underline;
+            color: #8b6f3a;
+        }
+
+        /* ===== GUÍA / TUTORIAL ===== */
+        .guia-pasos {
+            list-style: none;
+            padding: 0;
+            counter-reset: paso;
+        }
+        .guia-pasos li {
+            counter-increment: paso;
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .guia-pasos li::before {
+            content: counter(paso);
+            position: absolute;
+            left: 0;
+            top: -2px;
+            width: 28px;
+            height: 28px;
+            background: var(--dorado);
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .logo-sforza {
+                font-size: 2.2rem;
+                letter-spacing: 2px;
+            }
+            .logo-sforza::after {
+                right: -32px;
+                top: -4px;
+                font-size: 1rem;
+            }
+            section {
+                padding: 20px 16px;
+                margin: 18px 0;
+            }
+            section h2 {
+                font-size: 1.3rem;
+            }
+            .flor-decorativa {
+                opacity: 0.18;
+            }
+            .flor-1 {
+                width: 60px;
+                height: 60px;
+                top: 5%;
+                left: 2%;
+            }
+            .flor-2 {
+                width: 55px;
+                height: 55px;
+                top: 20%;
+                right: 2%;
+            }
+            .flor-3 {
+                width: 65px;
+                height: 65px;
+                bottom: 12%;
+                left: 2%;
+            }
+            .flor-4 {
+                width: 55px;
+                height: 55px;
+                top: 50%;
+                right: 3%;
+            }
+            .flor-5 {
+                width: 45px;
+                height: 45px;
+                top: 65%;
+                left: 40%;
+            }
+            .flor-6 {
+                width: 40px;
+                height: 40px;
+                top: 8%;
+                left: 35%;
+            }
+            .escape-puerta {
+                width: 75px;
+                height: 115px;
+                font-size: 2rem;
+            }
+            .oraculo-carta {
+                width: 130px;
+                height: 190px;
+            }
+            .girasol-icono {
+                width: 90px;
+                height: 90px;
+            }
+            .girasol-icono svg {
+                width: 65px;
+                height: 65px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .contenedor-principal {
+                padding: 10px 10px 30px;
+            }
+            section {
+                padding: 16px 12px;
+                border-radius: 14px;
+            }
+            .btn-agendar {
+                padding: 12px 22px;
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+            }
+            .escape-puertas {
+                gap: 8px;
+            }
+            .escape-puerta {
+                width: 65px;
+                height: 100px;
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== FLORES DECORATIVAS DE FONDO (DIBUJADAS CON SVG) ========== -->
+    <!-- Flor 1: Rosa (esquina superior izquierda) -->
+    <div class="flor-decorativa flor-1" aria-hidden="true">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Rosa dibujada con pétalos concéntricos -->
+            <circle cx="60" cy="60" r="48" fill="#f8bbd0" opacity="0.7"/>
+            <circle cx="60" cy="60" r="36" fill="#f48fb1" opacity="0.6"/>
+            <circle cx="60" cy="60" r="24" fill="#ec407a" opacity="0.5"/>
+            <circle cx="60" cy="60" r="13" fill="#c2185b" opacity="0.4"/>
+            <ellipse cx="48" cy="42" rx="16" ry="22" fill="#fce4ec" opacity="0.7" transform="rotate(-30 48 42)"/>
+            <ellipse cx="74" cy="38" rx="15" ry="20" fill="#fce4ec" opacity="0.65" transform="rotate(25 74 38)"/>
+            <ellipse cx="42" cy="68" rx="14" ry="18" fill="#fce4ec" opacity="0.6" transform="rotate(-50 42 68)"/>
+            <ellipse cx="78" cy="70" rx="13" ry="17" fill="#fce4ec" opacity="0.6" transform="rotate(45 78 70)"/>
+            <circle cx="60" cy="60" r="7" fill="#ffe0b2" opacity="0.8"/>
+            <!-- Hojas -->
+            <ellipse cx="34" cy="78" rx="18" ry="7" fill="#81c784" opacity="0.7" transform="rotate(-40 34 78)"/>
+            <ellipse cx="86" cy="80" rx="16" ry="6" fill="#a5d6a7" opacity="0.7" transform="rotate(35 86 80)"/>
+            <ellipse cx="60" cy="96" rx="22" ry="6" fill="#66bb6a" opacity="0.6" transform="rotate(5 60 96)"/>
+        </svg>
+    </div>
+
+    <!-- Flor 2: Lavanda (esquina superior derecha) -->
+    <div class="flor-decorativa flor-2" aria-hidden="true">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Tallos de lavanda -->
+            <line x1="30" y1="95" x2="28" y2="25" stroke="#7cb342" stroke-width="3" stroke-linecap="round"/>
+            <line x1="55" y1="95" x2="56" y2="18" stroke="#8bc34a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="78" y1="95" x2="76" y2="30" stroke="#7cb342" stroke-width="2.8" stroke-linecap="round"/>
+            <!-- Flores de lavanda (pequeños círculos agrupados) -->
+            <g fill="#c3aed6" opacity="0.85">
+                <circle cx="28" cy="25" r="5"/><circle cx="22" cy="30" r="4.5"/><circle cx="34" cy="28" r="4.8"/>
+                <circle cx="25" cy="35" r="4.2"/><circle cx="31" cy="33" r="4"/><circle cx="28" cy="40" r="3.8"/>
+                <circle cx="23" cy="44" r="3.5"/><circle cx="30" cy="47" r="3.3"/>
+            </g>
+            <g fill="#b39ddb" opacity="0.8">
+                <circle cx="56" cy="18" r="5.2"/><circle cx="50" cy="23" r="4.6"/><circle cx="62" cy="21" r="4.9"/>
+                <circle cx="53" cy="30" r="4.3"/><circle cx="59" cy="33" r="4.1"/><circle cx="56" cy="39" r="3.7"/>
+                <circle cx="51" cy="44" r="3.4"/><circle cx="58" cy="48" r="3.2"/>
+            </g>
+            <g fill="#d1c4e9" opacity="0.75">
+                <circle cx="76" cy="30" r="4.8"/><circle cx="70" cy="35" r="4.3"/><circle cx="82" cy="33" r="4.5"/>
+                <circle cx="73" cy="42" r="4"/><circle cx="79" cy="45" r="3.7"/>
+            </g>
+        </svg>
+    </div>
+
+    <!-- Flor 3: Peonía (inferior izquierda) -->
+    <div class="flor-decorativa flor-3" aria-hidden="true">
+        <svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+            <!-- Peonía grande y exuberante -->
+            <circle cx="65" cy="60" r="50" fill="#fce4ec" opacity="0.65"/>
+            <ellipse cx="40" cy="42" rx="22" ry="28" fill="#f8bbd0" opacity="0.7" transform="rotate(-20 40 42)"/>
+            <ellipse cx="90" cy="40" rx="20" ry="26" fill="#f8bbd0" opacity="0.68" transform="rotate(18 90 40)"/>
+            <ellipse cx="35" cy="72" rx="18" ry="24" fill="#f48fb1" opacity="0.6" transform="rotate(-45 35 72)"/>
+            <ellipse cx="95" cy="68" rx="17" ry="22" fill="#f48fb1" opacity="0.62" transform="rotate(40 95 68)"/>
+            <ellipse cx="65" cy="35" rx="16" ry="20" fill="#fce4ec" opacity="0.75"/>
+            <ellipse cx="65" cy="82" rx="20" ry="14" fill="#ec407a" opacity="0.4"/>
+            <circle cx="55" cy="52" r="14" fill="#f06292" opacity="0.55"/>
+            <circle cx="75" cy="50" r="13" fill="#ec407a" opacity="0.5"/>
+            <circle cx="65" cy="60" r="11" fill="#d81b60" opacity="0.45"/>
+            <circle cx="60" cy="56" r="5" fill="#ffe0b2" opacity="0.8"/>
+            <circle cx="70" cy="58" r="4" fill="#ffcc80" opacity="0.7"/>
+            <!-- Hojas de peonía -->
+            <ellipse cx="20" cy="85" rx="22" ry="9" fill="#a5d6a7" opacity="0.7" transform="rotate(-30 20 85)"/>
+            <ellipse cx="110" cy="82" rx="20" ry="8" fill="#81c784" opacity="0.65" transform="rotate(28 110 82)"/>
+            <ellipse cx="65" cy="100" rx="26" ry="8" fill="#66bb6a" opacity="0.6"/>
+        </svg>
+    </div>
+
+    <!-- Flor 4: Monstera (derecha media) -->
+    <div class="flor-decorativa flor-4" aria-hidden="true">
+        <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+            <!-- Hoja de monstera con agujeros característicos -->
+            <ellipse cx="55" cy="55" rx="40" ry="48" fill="#81c784" opacity="0.7" transform="rotate(-10 55 55)"/>
+            <ellipse cx="55" cy="55" rx="38" ry="46" fill="#a5d6a7" opacity="0.55" transform="rotate(-10 55 55)"/>
+            <!-- Agujeros de monstera -->
+            <ellipse cx="42" cy="38" rx="6" ry="9" fill="#fdf6f0" opacity="0.8" transform="rotate(-10 42 38)"/>
+            <ellipse cx="68" cy="35" rx="5" ry="8" fill="#fdf6f0" opacity="0.78" transform="rotate(5 68 35)"/>
+            <ellipse cx="38" cy="60" rx="7" ry="10" fill="#fdf6f0" opacity="0.75" transform="rotate(-15 38 60)"/>
+            <ellipse cx="70" cy="58" rx="5.5" ry="8.5" fill="#fdf6f0" opacity="0.77" transform="rotate(8 70 58)"/>
+            <ellipse cx="55" cy="78" rx="6" ry="9" fill="#fdf6f0" opacity="0.73" transform="rotate(-3 55 78)"/>
+            <!-- Nervaduras -->
+            <line x1="55" y1="12" x2="55" y2="95" stroke="#5c8a5a" stroke-width="2" opacity="0.5"/>
+            <line x1="30" y1="35" x2="70" y2="30" stroke="#5c8a5a" stroke-width="1.5" opacity="0.4"/>
+            <line x1="25" y1="58" x2="75" y2="52" stroke="#5c8a5a" stroke-width="1.5" opacity="0.4"/>
+            <!-- Tallo -->
+            <line x1="55" y1="95" x2="55" y2="108" stroke="#5c8a5a" stroke-width="3.5" stroke-linecap="round" opacity="0.7"/>
+        </svg>
+    </div>
+
+    <!-- Flor 5: Pequeña rosa (centro-inferior) -->
+    <div class="flor-decorativa flor-5" aria-hidden="true">
+        <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="45" cy="40" r="30" fill="#f8bbd0" opacity="0.6"/>
+            <circle cx="45" cy="40" r="22" fill="#f48fb1" opacity="0.55"/>
+            <circle cx="45" cy="40" r="14" fill="#ec407a" opacity="0.4"/>
+            <circle cx="45" cy="40" r="7" fill="#ffcc80" opacity="0.7"/>
+            <ellipse cx="35" cy="30" rx="10" ry="14" fill="#fce4ec" opacity="0.6" transform="rotate(-25 35 30)"/>
+            <ellipse cx="56" cy="28" rx="9" ry="13" fill="#fce4ec" opacity="0.55" transform="rotate(22 56 28)"/>
+            <ellipse cx="45" cy="68" rx="15" ry="5" fill="#81c784" opacity="0.6"/>
+        </svg>
+    </div>
+
+    <!-- Flor 6: Lavanda pequeña (arriba centro) -->
+    <div class="flor-decorativa flor-6" aria-hidden="true">
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <line x1="25" y1="78" x2="24" y2="20" stroke="#8bc34a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="50" y1="78" x2="51" y2="15" stroke="#7cb342" stroke-width="2.2" stroke-linecap="round"/>
+            <g fill="#c3aed6" opacity="0.8">
+                <circle cx="24" cy="20" r="4.5"/><circle cx="18" cy="26" r="4"/><circle cx="30" cy="23" r="4.2"/>
+                <circle cx="21" cy="33" r="3.8"/><circle cx="27" cy="36" r="3.5"/>
+            </g>
+            <g fill="#b39ddb" opacity="0.75">
+                <circle cx="51" cy="15" r="4.8"/><circle cx="45" cy="21" r="4.2"/><circle cx="57" cy="18" r="4.4"/>
+                <circle cx="48" cy="28" r="3.9"/><circle cx="54" cy="31" r="3.6"/>
+            </g>
+        </svg>
+    </div>
+
+    <!-- ========== CONTENEDOR PRINCIPAL ========== -->
+    <div class="contenedor-principal">
+
+        <!-- ===== HEADER ===== -->
+        <header>
+            <div class="decoracion-header" aria-hidden="true">
+                <span>🌹</span><span>💮</span><span>🌿</span><span>🪻</span><span>🌸</span>
+            </div>
+            <h1 class="logo-sforza">Sforza</h1>
+            <p class="subtitulo-header">Lectura de Tarot · Medio de Transformación</p>
+        </header>
+
+        <!-- ===== SECCIÓN: SERVICIO PRINCIPAL ===== -->
+        <section id="servicio">
+            <h2>🌟 Lectura de Tarot</h2>
+            <p style="font-size:1.1rem;text-align:center;margin:10px 0;">
+                <strong>⏱️ 30 minutos</strong> &nbsp;·&nbsp;
+                <strong>❓ Preguntas ilimitadas</strong> &nbsp;·&nbsp;
+                <strong>💲 $43 USD / MXN</strong>
+            </p>
+            <p style="text-align:center;color:var(--texto-claro);font-style:italic;">
+                Una sesión íntima y profunda para explorar tus inquietudes. Sin prisas, con toda la atención que mereces.
+            </p>
+            <div style="text-align:center;margin:20px 0;">
+                <button class="btn btn-agendar" onclick="abrirConsentimiento()" aria-label="Agendar lectura de tarot">
+                    🔮 AGENDAR LECTURA
+                </button>
+            </div>
+            <p style="text-align:center;font-size:0.8rem;color:var(--texto-claro);">
+                Al agendar aceptas el consentimiento informado.
+            </p>
+        </section>
+
+        <!-- ===== SECCIÓN: GUÍA DE USO / TUTORIAL ===== -->
+        <section id="guia">
+            <h2>🜁 Guía de Uso · Tutorial</h2>
+            <h3>📜 Para agendar:</h3>
+            <ol class="guia-pasos">
+                <li>Haz clic en los botones <strong>"AGENDAR"</strong>.</li>
+                <li>Acepta el <strong>consentimiento informado</strong>.</li>
+                <li>Serás redirigido a <strong>Calendly</strong> para elegir fecha y hora.</li>
+                <li>Recibirás <strong>confirmación por correo</strong>.</li>
+            </ol>
+            <h3>🔮 En esta página encontrarás:</h3>
+            <ul style="list-style:'✨ ';padding-left:20px;line-height:2;">
+                <li><strong>Oráculo de Sí/No</strong> — una carta al azar responde tu pregunta.</li>
+                <li><strong>Juego de Escape</strong> — prueba tu intuición para encontrar la salida.</li>
+                <li><strong>Sobre mí</strong> — conoce a Valentina Sforza.</li>
+            </ul>
+            <p style="font-style:italic;color:var(--texto-claro);margin-top:8px;">
+                🧙‍♂️ Ante cualquier duda, consulta a <strong>Cautín</strong>, mi astrólogo y chatbot de confianza
+                <span style="display:inline-block;animation:flotar 2s ease-in-out infinite;">👇</span>
+                (esquina inferior derecha).
+            </p>
+        </section>
+
+        <!-- ===== SECCIÓN: ORÁCULO DE SÍ/NO ===== -->
+        <section id="oraculo">
+            <h2>🔮 Oráculo de Sí / No</h2>
+            <p style="text-align:center;color:var(--texto-claro);margin-bottom:14px;">
+                Escribe una pregunta cerrada (de sí o no) y saca una carta del tarot para recibir una respuesta.
+            </p>
+            <input
+            type="text"
+            id="preguntaInput"
+            class="pregunta-input"
+            placeholder="Escribe tu pregunta de sí o no aquí..."
+            maxlength="200"
+            aria-label="Escribe tu pregunta de sí o no"
+            >
+            <p style="text-align:center;font-size:0.78rem;color:#c0392b;margin-top:4px;display:none;" id="errorPregunta">
+                ⚠️ Primero escribe una pregunta para poder sacar una carta.
+            </p>
+            <div style="text-align:center;margin:16px 0;">
+                <button class="btn btn-agendar btn-pequeno" id="btnSacarCarta" onclick="sacarCarta()" disabled>
+                    🃏 Sacar una carta
+                </button>
+            </div>
+            <!-- Carta del tarot -->
+            <div class="oraculo-carta" id="oraculoCartaContainer">
+                <div class="carta-inner" id="cartaInner">
+                    <div class="carta-reverso" id="cartaReverso" onclick="voltearCarta()">
+                        <span class="simbolo">✦</span>
+                        <span class="texto-reverso">TOCA PARA<br>REVELAR</span>
+                    </div>
+                    <div class="carta-frente" id="cartaFrente">
+                        <span class="emoji-carta" id="emojiCarta">🃏</span>
+                        <span class="nombre-carta" id="nombreCarta">---</span>
+                        <span class="significado-carta" id="significadoCarta">---</span>
+                    </div>
+                </div>
+            </div>
+            <div class="respuesta-oraculo" id="respuestaOraculo"></div>
+        </section>
+
+        <!-- ===== SECCIÓN: JUEGO DE ESCAPE ===== -->
+        <section id="escape">
+            <h2>🚪 Juego de Escape · Intuición</h2>
+            <p style="text-align:center;color:var(--texto-claro);">
+                Te encuentras en una habitación misteriosa. Frente a ti hay <strong>tres puertas</strong>.
+                Solo una te llevará a la salida. Usa tu intuición para elegir.
+            </p>
+            <p class="escape-pista" id="pistaEscape">🔍 Pista: "La salida se esconde donde la energía fluye con suavidad y el color te envuelve en calma."</p>
+            <div class="escape-puertas" id="escapePuertas">
+                <div class="escape-puerta puerta-1" onclick="elegirPuerta(1)" title="Puerta Rosa">🚪<br>🌹</div>
+                <div class="escape-puerta puerta-2" onclick="elegirPuerta(2)" title="Puerta Lavanda">🚪<br>🪻</div>
+                <div class="escape-puerta puerta-3" onclick="elegirPuerta(3)" title="Puerta Verde">🚪<br>🌿</div>
+            </div>
+            <div class="escape-resultado" id="escapeResultado" style="display:none;"></div>
+            <div style="text-align:center;margin-top:12px;">
+                <button class="btn btn-secundario btn-pequeno" onclick="reiniciarEscape()">🔄 Intentar de nuevo</button>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN: SOBRE MÍ ===== -->
+        <section id="sobre-mi">
+            <h2>🌻 Sobre mí</h2>
+            <div class="sobre-mi-contenedor">
+                <div class="girasol-icono" aria-hidden="true">
+                    <!-- Girasol dibujado en SVG -->
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Pétalos del girasol -->
+                        <g fill="#ffc107">
+                            <ellipse cx="50" cy="12" rx="7" ry="16" transform="rotate(0 50 50)"/>
+                            <ellipse cx="50" cy="12" rx="7" ry="16" transform="rotate(30 50 50)"/>
+                            <ellipse cx="50" cy="12" rx="7" ry="16" transform="rotate(60 50 50)"/>
+                            <ellipse cx="50" cy="12" rx="7" ry="16" transform="rotate(90 50 50)"/>
+                            <ellipse cx="50" cy="12" rx="7" ry="16" transform="rotate(120 50 50)"/>
+                            <ellipse cx="50" cy="12" rx="7" ry="16" transform="rotate(150 50 50)"/>
+                            <ellipse cx="50" cy="12" rx="7" ry="16" transform="rotate(180 50 50)"/>
+                            <ellipse cx="50" cy="12" rx="7" ry="16" transform="rotate(210 50 50)"/>
+                            <ellipse cx="50" cy="12" rx="7" ry="16" transform="rotate(240 50 50)"/>
+                            <ellipse cx="50" cy="12" rx="7" ry="16" transform="rotate(270 50 50)"/>
+                            <ellipse cx="50" cy="12" rx="7" ry="16" transform="rotate(300 50 50)"/>
+                            <ellipse cx="50" cy="12" rx="7" ry="16" transform="rotate(330 50 50)"/>
+                        </g>
+                        <!-- Centro del girasol -->
+                        <circle cx="50" cy="50" r="18" fill="#5d4037"/>
+                        <circle cx="50" cy="50" r="13" fill="#4e342e"/>
+                        <circle cx="50" cy="50" r="8" fill="#3e2723"/>
+                        <!-- Puntitos del centro -->
+                        <g fill="#8d6e63" opacity="0.7">
+                            <circle cx="45" cy="44" r="1.8"/><circle cx="55" cy="44" r="1.8"/>
+                            <circle cx="42" cy="52" r="1.8"/><circle cx="58" cy="52" r="1.8"/>
+                            <circle cx="50" cy="50" r="1.5"/><circle cx="46" cy="56" r="1.5"/>
+                            <circle cx="54" cy="56" r="1.5"/>
+                        </g>
+                        <!-- Hojas -->
+                        <ellipse cx="28" cy="72" rx="16" ry="6" fill="#81c784" transform="rotate(-35 28 72)"/>
+                        <ellipse cx="72" cy="74" rx="15" ry="5.5" fill="#a5d6a7" transform="rotate(30 72 74)"/>
+                        <!-- Tallo -->
+                        <line x1="50" y1="68" x2="50" y2="92" stroke="#66bb6a" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="sobre-mi-texto">
+                    <p>
+                        ¡Hola! Soy <strong>Valentina Sforza</strong>. Me apasiona acompañar a las personas en su camino de
+                        autoconocimiento. Creo firmemente en la honestidad: <em>me niego a engañar a la gente con cosas que no veo</em>.
+                        Mi enfoque es ético, cercano y sin charlatanería.
+                    </p>
+                    <p>
+                        Tengo casi <strong>5 años de experiencia</strong> leyendo tarot y <strong>cartas astrales</strong>.
+                        Para más información sobre lectura de carta astral, contáctame por WhatsApp.
+                    </p>
+                    <p>
+                        📍 Solo atiendo <strong>presencialmente en CU</strong> (Ciudad Universitaria).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN: CONTACTO Y PAGO ===== -->
+        <section id="contacto">
+            <h2>📬 Contacto y Pago</h2>
+            <p><strong>📧 Correo:</strong> <a href="mailto:vs9656271@gmail.com">vs9656271@gmail.com</a></p>
+            <p><strong>📱 WhatsApp:</strong> <a href="https://wa.me/525547688253" target="_blank" rel="noopener">+52 55 4768 8253</a></p>
+            <hr style="border:1px dashed var(--lavanda-claro);margin:16px 0;">
+            <p><strong>💳 Pago por transferencia:</strong></p>
+            <div class="clabe-oculta">
+                <span class="clabe-boton" onclick="toggleClabe()" id="clabeBoton">
+                    👁️ Mostrar datos bancarios (CLABE)
+                </span>
+                <div class="clabe-valor" id="clabeValor">
+                    CLABE: <strong>014180200149285395</strong>
+                    <br><small style="color:var(--texto-claro);">Banco Santander · Valentina Sforza</small>
+                </div>
+            </div>
+            <p style="font-size:0.78rem;color:var(--texto-claro);margin-top:8px;">
+                * Los datos bancarios permanecen semi-ocultos por seguridad. Haz clic para revelarlos.
+            </p>
+        </section>
+
+    </div><!-- fin contenedor-principal -->
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>🌙 Sforza © 2025 · Lectura de Tarot con ética y amor</p>
+        <p style="font-size:0.75rem;">🌹🌿🪻🌸🌿🌹</p>
+    </footer>
+
+    <!-- ========== MODAL DE CONSENTIMIENTO INFORMADO ========== -->
+    <div class="modal-overlay oculto" id="modalConsentimiento">
+        <div class="modal-contenido">
+            <button class="modal-cerrar" onclick="cerrarConsentimiento()" aria-label="Cerrar">&times;</button>
+            <h3 class="modal-titulo">📜 Consentimiento Informado</h3>
+            <div class="modal-texto">
+                <p><strong>Valentina Sforza</strong> informa lo siguiente antes de agendar cualquier lectura:</p>
+                <ul style="padding-left:18px;line-height:1.8;margin:8px 0;">
+                    <li>🚫 <strong>No atiendo</strong> a personas con situaciones mentales inestables o que requieran atención psiquiátrica.</li>
+                    <li>⚠️ <strong>No me responsabilizo</strong> de problemas personales derivados de la interpretación de la lectura.</li>
+                    <li>🩺 <strong>No sustituyo</strong> a ningún profesional médico, psicológico o terapéutico.</li>
+                    <li>🔞 Solo atiendo a <strong>personas mayores de edad</strong> (18+).</li>
+                    <li>🚫 <strong>No hago amarres</strong>, trabajos de magia ni manipulación energética.</li>
+                    <li>✅ Esto <strong>no es charlatanería</strong>; me tomo mi trabajo con seriedad y respeto.</li>
+                    <li>🔒 Soy <strong>discreta</strong> con tu información. Tus datos y consultas son confidenciales.</li>
+                </ul>
+                <p style="font-weight:bold;margin-top:8px;">
+                    Si no aceptas estos términos, no podrás agendar una lectura.
+                </p>
+            </div>
+            <div class="consentimiento-check">
+                <input type="checkbox" id="checkConsentimiento">
+                <label for="checkConsentimiento">
+                    <strong>Acepto</strong> el consentimiento informado y confirmo que soy mayor de edad.
+                </label>
+            </div>
+            <div class="modal-botones">
+                <button class="btn btn-agendar" id="btnConfirmarAgendar" onclick="confirmarAgendamiento()" disabled>
+                    ✅ Aceptar y Agendar
+                </button>
+                <button class="btn btn-secundario" onclick="cerrarConsentimiento()">
+                    ❌ Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MODAL DE CALENDLY (se muestra tras aceptar consentimiento) ========== -->
+    <div class="modal-overlay oculto" id="modalCalendly">
+        <div class="modal-contenido" style="max-width:750px;padding:20px;">
+            <button class="modal-cerrar" onclick="cerrarCalendly()" aria-label="Cerrar">&times;</button>
+            <h3 class="modal-titulo">📅 Elige tu fecha y hora</h3>
+            <!-- Calendly inline widget -->
+            <div class="calendly-inline-widget" data-url="https://calendly.com/vs9656271/cartas" style="min-width:280px;height:600px;"></div>
+        </div>
+    </div>
+
+    <!-- ========== CHATBOT TIDIO (Cautín) ========== -->
+    <script src="//code.tidio.co/9ho1j2cjluwndv4mbcrptbdnbry569vo.js" async></script>
+
+    <!-- ========== SCRIPT DE CALENDLY ========== -->
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+    <!-- ========== LÓGICA DE LA PÁGINA ========== -->
+    <script>
+        (function() {
+            // ===== REFERENCIAS A ELEMENTOS DEL DOM =====
+            const modalConsentimiento = document.getElementById('modalConsentimiento');
+            const modalCalendly = document.getElementById('modalCalendly');
+            const checkConsentimiento = document.getElementById('checkConsentimiento');
+            const btnConfirmarAgendar = document.getElementById('btnConfirmarAgendar');
+            const preguntaInput = document.getElementById('preguntaInput');
+            const btnSacarCarta = document.getElementById('btnSacarCarta');
+            const errorPregunta = document.getElementById('errorPregunta');
+            const cartaInner = document.getElementById('cartaInner');
+            const cartaReverso = document.getElementById('cartaReverso');
+            const emojiCarta = document.getElementById('emojiCarta');
+            const nombreCarta = document.getElementById('nombreCarta');
+            const significadoCarta = document.getElementById('significadoCarta');
+            const respuestaOraculo = document.getElementById('respuestaOraculo');
+            const escapeResultado = document.getElementById('escapeResultado');
+            const pistaEscape = document.getElementById('pistaEscape');
+            const clabeValor = document.getElementById('clabeValor');
+            const clabeBoton = document.getElementById('clabeBoton');
+
+            let cartaActual = null;
+            let cartaVolteada = false;
+            let escapeResuelto = false;
+
+            // ===== BASE DE DATOS DE CARTAS DEL TAROT PARA SÍ/NO =====
+            const cartasTarot = [
+                { nombre: 'El Sol', emoji: '☀️',
+                    significado: 'Claridad, éxito y vitalidad. Una respuesta luminosa y afirmativa.',
+                    tendencia: 'sí', fuerza: 'fuerte' },
+                { nombre: 'La Luna', emoji: '🌙',
+                    significado: 'Ilusiones, confusión y sombras. La respuesta es incierta, inclinándose al no.',
+                    tendencia: 'no', fuerza: 'media' },
+                { nombre: 'La Estrella', emoji: '⭐',
+                    significado: 'Esperanza, inspiración y renovación. El universo dice que sí, confía.',
+                    tendencia: 'sí', fuerza: 'fuerte' },
+                { nombre: 'La Torre', emoji: '🗼',
+                    significado: 'Ruina, cambios bruscos y revelaciones. La respuesta es un no rotundo.',
+                    tendencia: 'no', fuerza: 'fuerte' },
+                { nombre: 'El Mundo', emoji: '🌍',
+                    significado: 'Culminación, logro y plenitud. Un sí definitivo y expansivo.',
+                    tendencia: 'sí', fuerza: 'muy fuerte' },
+                { nombre: 'El Colgado', emoji: '🙃',
+                    significado: 'Pausa, sacrificio y nueva perspectiva. No es el momento; la respuesta es quizás o no.',
+                    tendencia: 'no', fuerza: 'media' },
+                { nombre: 'La Emperatriz', emoji: '👑',
+                    significado: 'Abundancia, fertilidad y creatividad. Un sí lleno de amor y crecimiento.',
+                    tendencia: 'sí', fuerza: 'fuerte' },
+                { nombre: 'La Muerte', emoji: '💀',
+                    significado: 'Transformación profunda, cierre de ciclos. Un no que abre paso a algo nuevo.',
+                    tendencia: 'no', fuerza: 'fuerte' },
+                { nombre: 'El Juicio', emoji: '📯',
+                    significado: 'Renacimiento, llamado interior y verdad. Un sí que requiere honestidad.',
+                    tendencia: 'sí', fuerza: 'media' },
+                { nombre: 'El Ermitaño', emoji: '🏔️',
+                    significado: 'Introspección, soledad y sabiduría interior. La respuesta está en ti; inclinación al no por ahora.',
+                    tendencia: 'no', fuerza: 'suave' },
+                { nombre: 'La Rueda de la Fortuna', emoji: '🎡',
+                    significado: 'Cambio cíclico, destino y suerte. Un sí con altibajos, pero favorable.',
+                    tendencia: 'sí', fuerza: 'media' },
+                { nombre: 'El Mago', emoji: '🪄',
+                    significado: 'Poder, manifestación y habilidades. Un sí poderoso si actúas con intención.',
+                    tendencia: 'sí', fuerza: 'fuerte' },
+            ];
+
+            // ===== ORÁCULO: HABILITAR BOTÓN SEGÚN PREGUNTA =====
+            preguntaInput.addEventListener('input', function() {
+                const hayPregunta = this.value.trim().length > 0;
+                btnSacarCarta.disabled = !hayPregunta;
+                errorPregunta.style.display = hayPregunta ? 'none' : 'none';
+                // Si ya hay carta volteada y el usuario escribe nueva pregunta, reiniciar
+                if (hayPregunta && cartaVolteada) {
+                    reiniciarCarta();
+                }
+            });
+
+            // ===== ORÁCULO: SACAR CARTA =====
+            window.sacarCarta = function() {
+                const pregunta = preguntaInput.value.trim();
+                if (!pregunta) {
+                    errorPregunta.style.display = 'block';
+                    errorPregunta.textContent = '⚠️ Primero escribe una pregunta para poder sacar una carta.';
+                    return;
+                }
+                errorPregunta.style.display = 'none';
+                // Si ya hay carta volteada, reiniciar primero
+                if (cartaVolteada) {
+                    reiniciarCarta();
+                }
+                // Elegir carta al azar
+                const indice = Math.floor(Math.random() * cartasTarot.length);
+                cartaActual = cartasTarot[indice];
+                // Actualizar frente de la carta
+                emojiCarta.textContent = cartaActual.emoji;
+                nombreCarta.textContent = cartaActual.nombre;
+                significadoCarta.textContent = cartaActual.significado;
+                // Ocultar respuesta anterior
+                respuestaOraculo.classList.remove('visible');
+                respuestaOraculo.textContent = '';
+                // Asegurar que la carta esté boca abajo
+                cartaInner.classList.remove('volteada');
+                cartaVolteada = false;
+                // Habilitar click en reverso
+                cartaReverso.style.pointerEvents = 'auto';
+                cartaReverso.style.cursor = 'pointer';
+                // Scroll hacia la carta
+                document.getElementById('oraculoCartaContainer').scrollIntoView({ behavior: 'smooth',
+                    block: 'center' });
+                // Efecto de brillo en el reverso
+                cartaReverso.style.boxShadow = '0 0 30px rgba(201,169,110,0.6)';
+                setTimeout(() => {
+                    cartaReverso.style.boxShadow = '';
+                }, 600);
+            };
+
+            // ===== ORÁCULO: VOLTEAR CARTA =====
+            window.voltearCarta = function() {
+                if (!cartaActual) return;
+                if (cartaVolteada) return;
+                cartaInner.classList.add('volteada');
+                cartaVolteada = true;
+                cartaReverso.style.pointerEvents = 'none';
+                cartaReverso.style.cursor = 'default';
+                // Mostrar respuesta
+                setTimeout(() => {
+                    mostrarRespuestaOraculo();
+                }, 400);
+            };
+
+            function mostrarRespuestaOraculo() {
+                if (!cartaActual) return;
+                let respuestaTexto = '';
+                const tendencia = cartaActual.tendencia;
+                const fuerza = cartaActual.fuerza;
+                const pregunta = preguntaInput.value.trim();
+
+                if (tendencia === 'sí') {
+                    if (fuerza === 'muy fuerte') {
+                        respuestaTexto =
+                            `✨ <strong>¡Definitivamente SÍ!</strong> ${cartaActual.nombre} te trae una afirmación contundente. ${cartaActual.significado} Confía plenamente en esta respuesta.`;
+                    } else if (fuerza === 'fuerte') {
+                        respuestaTexto =
+                            `🌟 <strong>La respuesta es SÍ.</strong> ${cartaActual.nombre} ilumina tu camino con energía favorable. ${cartaActual.significado}`;
+                    } else {
+                        respuestaTexto =
+                            `🌤️ <strong>Inclinación hacia el SÍ.</strong> ${cartaActual.nombre} sugiere que es probable, aunque requiere de tu atención. ${cartaActual.significado}`;
+                    }
+                } else {
+                    if (fuerza === 'fuerte' || fuerza === 'muy fuerte') {
+                        respuestaTexto =
+                            `🌑 <strong>La respuesta es NO.</strong> ${cartaActual.nombre} trae un mensaje de advertencia o cierre. ${cartaActual.significado}`;
+                    } else if (fuerza === 'media') {
+                        respuestaTexto =
+                            `🌥️ <strong>Inclinación hacia el NO.</strong> ${cartaActual.nombre} indica que no es el momento adecuado. ${cartaActual.significado}`;
+                    } else {
+                        respuestaTexto =
+                            `🍂 <strong>Probablemente NO, por ahora.</strong> ${cartaActual.nombre} te invita a la pausa y la reflexión. ${cartaActual.significado}`;
+                    }
+                }
+                respuestaOraculo.innerHTML = respuestaTexto;
+                respuestaOraculo.classList.add('visible');
+                respuestaOraculo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            function reiniciarCarta() {
+                cartaInner.classList.remove('volteada');
+                cartaVolteada = false;
+                cartaActual = null;
+                cartaReverso.style.pointerEvents = 'auto';
+                cartaReverso.style.cursor = 'pointer';
+                respuestaOraculo.classList.remove('visible');
+                respuestaOraculo.textContent = '';
+                emojiCarta.textContent = '🃏';
+                nombreCarta.textContent = '---';
+                significadoCarta.textContent = '---';
+            }
+
+            // ===== JUEGO DE ESCAPE =====
+            const puertaCorrecta = Math.floor(Math.random() * 3) + 1; // 1, 2 o 3
+            window.elegirPuerta = function(numero) {
+                if (escapeResuelto) return;
+                escapeResuelto = true;
+                const resultado = document.getElementById('escapeResultado');
+                const puertas = document.querySelectorAll('.escape-puerta');
+                // Deshabilitar todas las puertas
+                puertas.forEach(p => { p.style.pointerEvents = 'none';
+                    p.style.opacity = '0.6'; });
+                if (numero === puertaCorrecta) {
+                    resultado.style.display = 'block';
+                    resultado.style.background = '#c8e6c9';
+                    resultado.style.color = '#2e7d32';
+                    resultado.innerHTML =
+                        '🎉 <strong>¡Escapaste!</strong> Tu intuición te ha guiado correctamente. La puerta se abre y encuentras la luz. ¡Eres increíble! 🌟';
+                    pistaEscape.textContent = '✨ Has demostrado una gran intuición. ¡Felicitaciones!';
+                } else {
+                    resultado.style.display = 'block';
+                    resultado.style.background = '#ffcdd2';
+                    resultado.style.color = '#c62828';
+                    resultado.innerHTML =
+                        '🚫 <strong>Esa no era la salida...</strong> La puerta se cierra. Pero no te preocupes, la intuición se entrena. ¡Inténtalo de nuevo!';
+                    pistaEscape.textContent =
+                        '💡 La próxima vez, respira hondo y siente la energía de cada puerta antes de elegir.';
+                }
+                resultado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            };
+
+            window.reiniciarEscape = function() {
+                escapeResuelto = false;
+                const resultado = document.getElementById('escapeResultado');
+                resultado.style.display = 'none';
+                resultado.textContent = '';
+                const puertas = document.querySelectorAll('.escape-puerta');
+                puertas.forEach(p => { p.style.pointerEvents = 'auto';
+                    p.style.opacity = '1'; });
+                pistaEscape.textContent =
+                    '🔍 Pista: "La salida se esconde donde la energía fluye con suavidad y el color te envuelve en calma."';
+                // Nueva puerta correcta aleatoria
+                window._puertaCorrectaNueva = Math.floor(Math.random() * 3) + 1;
+                // Actualizar la referencia global
+                window._puertaCorrectaRef = window._puertaCorrectaNueva;
+            };
+            // Sobrescribir elegirPuerta para usar la nueva referencia
+            const elegirPuertaOriginal = window.elegirPuerta;
+            window.elegirPuerta = function(numero) {
+                if (escapeResuelto) return;
+                const correcta = window._puertaCorrectaRef || puertaCorrecta;
+                escapeResuelto = true;
+                const resultado = document.getElementById('escapeResultado');
+                const puertas = document.querySelectorAll('.escape-puerta');
+                puertas.forEach(p => { p.style.pointerEvents = 'none';
+                    p.style.opacity = '0.6'; });
+                if (numero === correcta) {
+                    resultado.style.display = 'block';
+                    resultado.style.background = '#c8e6c9';
+                    resultado.style.color = '#2e7d32';
+                    resultado.innerHTML =
+                        '🎉 <strong>¡Escapaste!</strong> Tu intuición te ha guiado correctamente. La puerta se abre y encuentras la luz. ¡Eres increíble! 🌟';
+                    pistaEscape.textContent = '✨ Has demostrado una gran intuición. ¡Felicitaciones!';
+                } else {
+                    resultado.style.display = 'block';
+                    resultado.style.background = '#ffcdd2';
+                    resultado.style.color = '#c62828';
+                    resultado.innerHTML =
+                        '🚫 <strong>Esa no era la salida...</strong> La puerta se cierra. Pero no te preocupes, la intuición se entrena. ¡Inténtalo de nuevo!';
+                    pistaEscape.textContent =
+                        '💡 La próxima vez, respira hondo y siente la energía de cada puerta antes de elegir.';
+                }
+                resultado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            };
+            window.reiniciarEscape = function() {
+                escapeResuelto = false;
+                const resultado = document.getElementById('escapeResultado');
+                resultado.style.display = 'none';
+                resultado.textContent = '';
+                const puertas = document.querySelectorAll('.escape-puerta');
+                puertas.forEach(p => { p.style.pointerEvents = 'auto';
+                    p.style.opacity = '1'; });
+                pistaEscape.textContent =
+                    '🔍 Pista: "La salida se esconde donde la energía fluye con suavidad y el color te envuelve en calma."';
+                window._puertaCorrectaRef = Math.floor(Math.random() * 3) + 1;
+            };
+            window._puertaCorrectaRef = puertaCorrecta;
+
+            // ===== CONSENTIMIENTO INFORMADO =====
+            window.abrirConsentimiento = function() {
+                // Verificar si ya aceptó antes (localStorage)
+                const aceptoPreviamente = localStorage.getItem('sforza_consentimiento_aceptado');
+                if (aceptoPreviamente === 'true') {
+                    // Ya aceptó, abrir Calendly directamente
+                    abrirCalendly();
+                    return;
+                }
+                modalConsentimiento.classList.remove('oculto');
+                checkConsentimiento.checked = false;
+                btnConfirmarAgendar.disabled = true;
+                document.body.style.overflow = 'hidden';
+            };
+
+            window.cerrarConsentimiento = function() {
+                modalConsentimiento.classList.add('oculto');
+                document.body.style.overflow = '';
+                checkConsentimiento.checked = false;
+                btnConfirmarAgendar.disabled = true;
+            };
+
+            // Habilitar botón de confirmar cuando se marque el checkbox
+            checkConsentimiento.addEventListener('change', function() {
+                btnConfirmarAgendar.disabled = !this.checked;
+            });
+
+            window.confirmarAgendamiento = function() {
+                if (!checkConsentimiento.checked) return;
+                // Guardar en localStorage que aceptó
+                localStorage.setItem('sforza_consentimiento_aceptado', 'true');
+                localStorage.setItem('sforza_consentimiento_fecha', new Date().toISOString());
+                // Cerrar modal de consentimiento
+                modalConsentimiento.classList.add('oculto');
+                document.body.style.overflow = '';
+                // Abrir Calendly
+                abrirCalendly();
+            };
+
+            function abrirCalendly() {
+                modalCalendly.classList.remove('oculto');
+                document.body.style.overflow = 'hidden';
+                // Reiniciar widget de Calendly si es necesario
+                if (typeof Calendly !== 'undefined' && Calendly.initInlineWidget) {
+                    try {
+                        const widgetContainer = modalCalendly.querySelector('.calendly-inline-widget');
+                        if (widgetContainer && !widgetContainer.hasAttribute('data-processed')) {
+                            Calendly.initInlineWidget({
+                                url: 'https://calendly.com/vs9656271/cartas',
+                                parentElement: widgetContainer,
+                                inlineStyles: true,
+                                embedType: 'Inline',
+                                resize: true
+                            });
+                        }
+                    } catch (e) {
+                        console.log('Calendly ya inicializado o en proceso.');
+                    }
+                }
+            }
+
+            window.cerrarCalendly = function() {
+                modalCalendly.classList.add('oculto');
+                document.body.style.overflow = '';
+            };
+
+            // Cerrar modales con tecla Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (!modalConsentimiento.classList.contains('oculto')) {
+                        cerrarConsentimiento();
+                    }
+                    if (!modalCalendly.classList.contains('oculto')) {
+                        cerrarCalendly();
+                    }
+                }
+            });
+
+            // Cerrar modales al hacer clic fuera del contenido
+            modalConsentimiento.addEventListener('click', function(e) {
+                if (e.target === modalConsentimiento) {
+                    cerrarConsentimiento();
+                }
+            });
+            modalCalendly.addEventListener('click', function(e) {
+                if (e.target === modalCalendly) {
+                    cerrarCalendly();
+                }
+            });
+
+            // ===== CLABE OCULTA =====
+            window.toggleClabe = function() {
+                const valor = clabeValor;
+                const boton = clabeBoton;
+                if (valor.classList.contains('visible')) {
+                    valor.classList.remove('visible');
+                    boton.textContent = '👁️ Mostrar datos bancarios (CLABE)';
+                } else {
+                    valor.classList.add('visible');
+                    boton.textContent = '🙈 Ocultar datos bancarios';
+                }
+            };
+
+            // ===== INICIALIZACIÓN =====
+            console.log('🌙 Sforza · Página de Tarot lista.');
+            console.log('🧙‍♂️ Cautín (chatbot) está en la esquina inferior derecha.');
+            console.log('📜 Consentimiento guardado en localStorage:', localStorage.getItem(
+                'sforza_consentimiento_aceptado') === 'true' ? 'Sí aceptado' : 'No aceptado aún');
+
+            // Exponer funciones globales necesarias
+            window.abrirConsentimiento = window.abrirConsentimiento;
+            window.cerrarConsentimiento = window.cerrarConsentimiento;
+            window.confirmarAgendamiento = window.confirmarAgendamiento;
+            window.cerrarCalendly = window.cerrarCalendly;
+            window.sacarCarta = window.sacarCarta;
+            window.voltearCarta = window.voltearCarta;
+            window.toggleClabe = window.toggleClabe;
+            window.elegirPuerta = window.elegirPuerta;
+            window.reiniciarEscape = window.reiniciarEscape;
+        })();
+    </script>
+</body>
+</html>
